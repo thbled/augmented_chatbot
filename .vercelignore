@@ -1,0 +1,13 @@
+# Seuls le frontend, le backend et le point d'entrée api/ sont déployés.
+0_docs
+tools
+**/node_modules
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+backend/tests
+frontend/dist
+frontend/dev-dist
+**/.env
+*.xlsx

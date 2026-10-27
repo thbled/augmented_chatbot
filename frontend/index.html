@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>%VITE_EVENT_NAME% — Assistant</title>
+    <meta
+      name="description"
+      content="Assistant conversationnel de %VITE_EVENT_NAME% : speakers, programme, partenaires et informations pratiques."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Applique le thème avant le premier rendu pour éviter un flash de couleur. -->
+    <script src="/theme-init.js"></script>
+  </head>
+  <body>
+    <noscript
+      >Cette application nécessite JavaScript. / This application requires JavaScript.</noscript
+    >
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

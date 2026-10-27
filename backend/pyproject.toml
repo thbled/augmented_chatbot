@@ -1,0 +1,42 @@
+[project]
+name = "chatbot-api"
+version = "0.1.0"
+description = "API Flask faisant le pont entre l'application de chat et le serveur LLM (compatible OpenAI)."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "flask>=3.1",
+    "httpx>=0.28",
+    "openai>=1.60",
+    "python-dotenv>=1.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.9",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/chatbot_api"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "S", "SIM", "RUF"]
+# Typographie française volontaire (tirets demi-cadratin, guillemets, ×).
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106"]

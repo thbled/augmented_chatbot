@@ -1,0 +1,81 @@
+{
+  "app": {
+    "subtitle": "Your assistant",
+    "skipToComposer": "Skip to message input",
+    "skipToConversation": "Skip to conversation",
+    "disclaimer": "AI-generated answers — check with the help desk if in doubt. Please do not enter personal data."
+  },
+  "header": {
+    "newConversation": "New conversation",
+    "switchLanguage": "Passer en français",
+    "languageShort": "FR",
+    "themeToDark": "Switch to dark theme",
+    "themeToLight": "Switch to light theme"
+  },
+  "welcome": {
+    "title": "Welcome to {{event}}",
+    "intro": "I help you make the most of the event: speakers, agenda, partners, topics to explore and practical information.",
+    "starterHeading": "Get started",
+    "starters": {
+      "now": "What's happening right now?",
+      "speakers": "Who are the speakers?",
+      "planning": "Build me a schedule based on my interests",
+      "partners": "Which partners are attending?",
+      "practical": "How do I get there and where can I eat?",
+      "capabilities": "What can you do for me?"
+    }
+  },
+  "chat": {
+    "conversationLabel": "Conversation",
+    "you": "You",
+    "assistant": "Assistant",
+    "thinking": "The assistant is thinking…",
+    "stopped": "Answer stopped.",
+    "retry": "Try again",
+    "suggestionsLabel": "Suggested questions",
+    "loadingCard": "Loading card…"
+  },
+  "composer": {
+    "label": "Your question",
+    "placeholder": "Ask your question…",
+    "send": "Send",
+    "stop": "Stop the answer",
+    "remaining": "{{count}} characters left"
+  },
+  "errors": {
+    "rate_limited": "You have reached the maximum number of questions for today. Please try again later.",
+    "message_too_long": "Your message is too long. Please shorten it and try again.",
+    "invalid_request": "The request could not be processed. Start a new conversation if the problem persists.",
+    "llm_timeout": "The assistant took too long to answer. Please try again.",
+    "llm_unavailable": "The assistant is temporarily unavailable. Please try again in a moment.",
+    "internal_error": "Something went wrong. Please try again.",
+    "interrupted": "The answer was interrupted. Please try again.",
+    "network": "Unable to connect. Check your network and try again."
+  },
+  "cards": {
+    "viewProfile": "View profile",
+    "viewProfileOf": "View {{name}}'s profile",
+    "askAbout": "Learn more",
+    "askAboutItem": "Learn more about {{name}}",
+    "close": "Close",
+    "biography": "Biography",
+    "expertise": "Expertise",
+    "sessions": "Sessions",
+    "linkedin": "LinkedIn profile",
+    "website": "Website",
+    "newWindow": "(opens in a new window)",
+    "booth": "Booth {{booth}}",
+    "speakers": "Speakers",
+    "askSpeaker": "Ask about {{name}}",
+    "questions": {
+      "speaker": "Tell me about {{name}}: background, expertise and sessions.",
+      "session": "Give me more details about the session \"{{title}}\".",
+      "partner": "Tell me about {{name}} and what they offer."
+    }
+  },
+  "a11y": {
+    "generating": "The assistant is writing its answer.",
+    "answerReady": "Assistant's answer: {{text}}",
+    "conversationReset": "New conversation started."
+  }
+}

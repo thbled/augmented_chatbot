@@ -1,0 +1,81 @@
+{
+  "app": {
+    "subtitle": "Votre assistant",
+    "skipToComposer": "Aller à la saisie du message",
+    "skipToConversation": "Aller à la conversation",
+    "disclaimer": "Réponses générées par IA, à vérifier auprès de l'accueil en cas de doute. Ne saisissez pas de données personnelles."
+  },
+  "header": {
+    "newConversation": "Nouvelle conversation",
+    "switchLanguage": "Switch to English",
+    "languageShort": "EN",
+    "themeToDark": "Activer le thème sombre",
+    "themeToLight": "Activer le thème clair"
+  },
+  "welcome": {
+    "title": "Bienvenue à {{event}}",
+    "intro": "Je vous aide à tirer le meilleur de l'événement : speakers, programme, partenaires, sujets à approfondir et informations pratiques.",
+    "starterHeading": "Pour commencer",
+    "starters": {
+      "now": "Que se passe-t-il en ce moment ?",
+      "speakers": "Qui sont les speakers ?",
+      "planning": "Construis-moi un planning selon mes centres d'intérêt",
+      "partners": "Quels sont les partenaires présents ?",
+      "practical": "Comment venir et où se restaurer ?",
+      "capabilities": "Que peux-tu faire pour moi ?"
+    }
+  },
+  "chat": {
+    "conversationLabel": "Conversation",
+    "you": "Vous",
+    "assistant": "Assistant",
+    "thinking": "L'assistant réfléchit…",
+    "stopped": "Réponse interrompue.",
+    "retry": "Réessayer",
+    "suggestionsLabel": "Questions suggérées",
+    "loadingCard": "Chargement de la fiche…"
+  },
+  "composer": {
+    "label": "Votre question",
+    "placeholder": "Posez votre question…",
+    "send": "Envoyer",
+    "stop": "Arrêter la réponse",
+    "remaining": "{{count}} caractères restants"
+  },
+  "errors": {
+    "rate_limited": "Vous avez atteint le nombre maximal de questions pour aujourd'hui. Merci de réessayer plus tard.",
+    "message_too_long": "Votre message est trop long. Raccourcissez-le puis réessayez.",
+    "invalid_request": "La demande n'a pas pu être traitée. Lancez une nouvelle conversation si le problème persiste.",
+    "llm_timeout": "L'assistant a mis trop de temps à répondre. Merci de réessayer.",
+    "llm_unavailable": "L'assistant est momentanément indisponible. Merci de réessayer dans un instant.",
+    "internal_error": "Une erreur est survenue. Merci de réessayer.",
+    "interrupted": "La réponse a été interrompue. Merci de réessayer.",
+    "network": "Connexion impossible. Vérifiez votre réseau puis réessayez."
+  },
+  "cards": {
+    "viewProfile": "Voir la fiche",
+    "viewProfileOf": "Voir la fiche de {{name}}",
+    "askAbout": "En savoir plus",
+    "askAboutItem": "En savoir plus sur {{name}}",
+    "close": "Fermer",
+    "biography": "Biographie",
+    "expertise": "Expertises",
+    "sessions": "Interventions",
+    "linkedin": "Profil LinkedIn",
+    "website": "Site web",
+    "newWindow": "(nouvelle fenêtre)",
+    "booth": "Stand {{booth}}",
+    "speakers": "Intervenants",
+    "askSpeaker": "Poser une question sur {{name}}",
+    "questions": {
+      "speaker": "Présente-moi {{name}} : son parcours, son expertise et ses interventions.",
+      "session": "Donne-moi plus de détails sur la session « {{title}} ».",
+      "partner": "Présente-moi l'entreprise {{name}} et son offre."
+    }
+  },
+  "a11y": {
+    "generating": "L'assistant rédige sa réponse.",
+    "answerReady": "Réponse de l'assistant : {{text}}",
+    "conversationReset": "Nouvelle conversation démarrée."
+  }
+}

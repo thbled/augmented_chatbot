@@ -1,0 +1,75 @@
+# Dépendances de la fonction Python Vercel (générées depuis backend/uv.lock :
+#   cd backend && uv export --no-dev --no-hashes --no-emit-project --no-header -o ../requirements.txt)
+annotated-types==0.8.0
+    # via pydantic
+anyio==4.15.1
+    # via
+    #   httpx
+    #   httpx2
+    #   openai
+blinker==1.9.0
+    # via flask
+certifi==2026.10.23
+    # via
+    #   httpcore
+    #   httpx
+click==8.5.0
+    # via flask
+flask==3.1.3
+    # via chatbot-api
+h11==0.16.0
+    # via
+    #   httpcore
+    #   httpcore2
+httpcore==1.0.9
+    # via httpx
+httpcore2==2.16.0 ; sys_platform != 'emscripten'
+    # via httpx2
+httpx==0.28.1
+    # via chatbot-api
+httpx2==2.16.0
+    # via openai
+httpx2-jsfetch==1.0 ; sys_platform == 'emscripten'
+    # via httpx2
+idna==3.20
+    # via
+    #   anyio
+    #   httpx
+    #   httpx2
+itsdangerous==2.2.0
+    # via flask
+jinja2==3.1.6
+    # via flask
+jiter==0.18.0
+    # via openai
+markupsafe==3.0.4
+    # via
+    #   flask
+    #   jinja2
+    #   werkzeug
+openai==3.37.0
+    # via chatbot-api
+pydantic==2.14.1
+    # via openai
+pydantic-core==2.50.1
+    # via pydantic
+python-dotenv==1.2.4
+    # via chatbot-api
+sniffio==1.3.1
+    # via openai
+truststore==0.10.5 ; sys_platform != 'emscripten'
+    # via
+    #   httpcore2
+    #   httpx2
+typing-extensions==4.16.0
+    # via
+    #   anyio
+    #   httpx2
+    #   openai
+    #   pydantic
+    #   pydantic-core
+    #   typing-inspection
+typing-inspection==0.4.4
+    # via pydantic
+werkzeug==3.1.9
+    # via flask
