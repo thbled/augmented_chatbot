@@ -36,7 +36,7 @@ class OpenAICompatibleClient:
             timeout=settings.llm_timeout_seconds,
             max_retries=1,
         )
-
+    
     def build_messages(self, request: ChatRequest) -> list[dict[str, str]]:
         system = build_system_prompt(self._settings, request.locale)
         return [
@@ -60,15 +60,28 @@ class OpenAICompatibleClient:
         }
         if settings.llm_reasoning_effort:
             params["reasoning_effort"] = settings.llm_reasoning_effort
-        if settings.llm_extra_body:
-            params["extra_body"] = settings.llm_extra_body
+        
+        # kb_id n'est pas un paramètre natif du SDK : il passe par extra_body.
+        extra_body: dict[str, Any] = dict(settings.llm_extra_body or {})
+        if settings.llm_kb_id:
+            extra_body["kb_id"] = settings.llm_kb_id
+        if extra_body:
+            params["extra_body"] = extra_body
+
+        logger.info(
+            "LLM base_url=%s model=%s kb_id=%s",
+            settings.llm_base_url, settings.llm_model, extra_body.get("kb_id"),
+        )
 
         try:
             stream = self._client.chat.completions.create(**params)
             for chunk in stream:
                 if not chunk.choices:
+                    logger.warning("NO chunk.choices")
                     continue
+                logger.warning("chunk.choices[0] %s", chunk.choices[0])
                 text = chunk.choices[0].delta.content
+
                 if text:
                     yield text
         except APITimeoutError as exc:

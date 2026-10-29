@@ -11,7 +11,10 @@ from dotenv import load_dotenv
 from flask import Flask, Response, jsonify, request
 
 from chatbot_api.config import Settings
+
 from chatbot_api.llm import ChatClient, LLMError, OpenAICompatibleClient
+from chatbot_api.ws_client import WebSocketRagClient
+
 from chatbot_api.rate_limit import RateLimiter, build_rate_limiter, hash_client_ip
 from chatbot_api.validation import ValidationError, parse_chat_request
 
@@ -19,6 +22,10 @@ logger = logging.getLogger(__name__)
 
 MAX_BODY_BYTES = 256 * 1024
 
+def build_chat_client(settings: Settings) -> ChatClient:
+    if settings.ws_workspace_id:             # RAG via WebSocket
+        return WebSocketRagClient(settings)
+    return OpenAICompatibleClient(settings)  # HTTP actuel
 
 def sse_event(payload: dict[str, Any]) -> str:
     return f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
@@ -42,7 +49,7 @@ def create_app(
 ) -> Flask:
     load_dotenv()
     settings = settings or Settings.from_env()
-    chat_client = chat_client or OpenAICompatibleClient(settings)
+    chat_client = chat_client or build_chat_client(settings)
     rate_limiter = rate_limiter or build_rate_limiter(settings)
 
     app = Flask(__name__)

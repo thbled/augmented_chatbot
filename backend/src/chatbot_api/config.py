@@ -75,7 +75,11 @@ class Settings:
     llm_timeout_seconds: float = 55.0
     llm_reasoning_effort: str | None = None
     llm_extra_body: dict[str, Any] = field(default_factory=dict)
-
+    llm_kb_id: str = ""
+    ws_url: str = ""
+    ws_provider: str = ""
+    ws_workspace_id: str = ""
+    ws_doc_limit: str = ""
     event_name: str = "la conférence"
     event_timezone: str = "Europe/Paris"
 
@@ -96,7 +100,12 @@ class Settings:
     def from_env(cls) -> Settings:
         base_url = os.getenv("LLM_BASE_URL", "").strip()
         api_key = os.getenv("LLM_API_KEY", "").strip()
+        llm_kb_id = os.getenv("LLM_KB_ID", "").strip()
         model = os.getenv("LLM_MODEL", "").strip()
+        ws_url = os.getenv("WS_URL", "").strip() or "wss://ws.generative-eu.engine.capgemini.com/"
+        ws_provider = os.getenv("WS_PROVIDER", "").strip() or "bedrock"
+        ws_workspace_id = os.getenv("WS_WORKSPACE_ID", "").strip()
+        ws_doc_limit = _get_int("WS_DOC_LIMIT", 10)
         missing = [
             name
             for name, value in (
@@ -106,6 +115,7 @@ class Settings:
             )
             if not value
         ]
+        
         if missing:
             raise ConfigError(f"Variables d'environnement manquantes : {', '.join(missing)}")
 
@@ -117,6 +127,11 @@ class Settings:
             llm_base_url=base_url,
             llm_api_key=api_key,
             llm_model=model,
+            llm_kb_id=llm_kb_id,
+            ws_url=ws_url,
+            ws_provider=ws_provider,
+            ws_workspace_id=ws_workspace_id,
+            ws_doc_limit=ws_doc_limit,
             llm_temperature=_get_float("LLM_TEMPERATURE", 0.3),
             llm_max_tokens=_get_int("LLM_MAX_TOKENS", 2500),
             llm_timeout_seconds=_get_float("LLM_TIMEOUT_SECONDS", 55.0),

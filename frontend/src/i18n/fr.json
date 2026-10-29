@@ -14,15 +14,15 @@
   },
   "welcome": {
     "title": "Bienvenue à {{event}}",
-    "intro": "Je vous aide à tirer le meilleur de l'événement : speakers, programme, partenaires, sujets à approfondir et informations pratiques.",
+    "intro": "Je vous aide à tirer le meilleur de l'événement : speakers, programme, partenaires, sujets à approfondir et informations pratiques.",
     "starterHeading": "Pour commencer",
     "starters": {
-      "now": "Que se passe-t-il en ce moment ?",
-      "speakers": "Qui sont les speakers ?",
-      "planning": "Construis-moi un planning selon mes centres d'intérêt",
-      "partners": "Quels sont les partenaires présents ?",
-      "practical": "Comment venir et où se restaurer ?",
-      "capabilities": "Que peux-tu faire pour moi ?"
+      "now": "{{currentTime}} : Quelles sont les activités en cours ?",
+      "speakers": "Qui sont les speakers ?",
+      "planning": "Je souhaiterais connaître le planning du salon.",
+      "planning-user": "Construis-moi un planning selon mes centres d'intérêt",
+      "partners": "Quels sont les partenaires présents ?",
+      "capabilities": "Que peux-tu faire pour moi ?"
     }
   },
   "chat": {
@@ -68,14 +68,14 @@
     "speakers": "Intervenants",
     "askSpeaker": "Poser une question sur {{name}}",
     "questions": {
-      "speaker": "Présente-moi {{name}} : son parcours, son expertise et ses interventions.",
-      "session": "Donne-moi plus de détails sur la session « {{title}} ».",
+      "speaker": "Présente-moi {{name}} : son parcours, son expertise et ses interventions.",
+      "session": "Donne-moi plus de détails sur la session « {{title}} ».",
       "partner": "Présente-moi l'entreprise {{name}} et son offre."
     }
   },
   "a11y": {
     "generating": "L'assistant rédige sa réponse.",
-    "answerReady": "Réponse de l'assistant : {{text}}",
+    "answerReady": "Réponse de l'assistant : {{text}}",
     "conversationReset": "Nouvelle conversation démarrée."
   }
 }

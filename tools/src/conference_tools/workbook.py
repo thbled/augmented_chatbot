@@ -229,7 +229,7 @@ SHEET_COLUMNS: dict[str, list[Column]] = {
 }
 
 EXAMPLE_EVENT = {
-    "Nom de l'événement": "Tech Summit 2026",
+    "Nom de l'événement": "Business Agility Days 2026",
     "Édition / thème": "L'IA au service de l'entreprise",
     "Dates": "12 novembre 2026",
     "Lieu": "Centre des congrès",

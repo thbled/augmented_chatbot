@@ -11,19 +11,33 @@ import { useTranslation } from 'react-i18next';
 
 import { EVENT_NAME } from '../config';
 import { useChatActions } from '../context/ChatActions';
+import i18n from '../i18n';
+import { useEffect, useState } from 'react';
 
 const STARTERS: { key: string; icon: LucideIcon }[] = [
   { key: 'now', icon: CalendarClock },
   { key: 'speakers', icon: Users },
   { key: 'planning', icon: Route },
   { key: 'partners', icon: Building2 },
-  { key: 'practical', icon: MapPin },
+  { key: 'planning-user', icon: MapPin },
   { key: 'capabilities', icon: CircleHelp },
 ];
 
 export function Welcome() {
   const { t } = useTranslation();
   const { ask, busy } = useChatActions();
+  const [time, setTime] = useState(new Date());
+
+  // Met à jour l'heure automatiquement toutes les minutes
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 60000);
+    return () => clearInterval(timer); // Nettoyage du timer au démontage
+  }, []);
+
+// Extraction et formatage forcé en HH"h"mm
+  const hours = time.getHours().toString().padStart(2, '0');
+  const minutes = time.getMinutes().toString().padStart(2, '0');
+  const formattedTime = `${hours}h${minutes}`; // Résultat : "14h41"
 
   return (
     <section aria-labelledby="welcome-title" className="animate-fade-in py-4 sm:py-10">
@@ -47,7 +61,12 @@ export function Welcome() {
       </h3>
       <ul className="grid gap-2.5 sm:grid-cols-2">
         {STARTERS.map(({ key, icon: Icon }) => {
-          const question = t(`welcome.starters.${key}`);
+          let question = t(`welcome.starters.${key}`);
+
+          if (key === 'now') {
+            question = t(`welcome.starters.${key}`, { currentTime: formattedTime });
+          }
+
           return (
             <li key={key}>
               <button

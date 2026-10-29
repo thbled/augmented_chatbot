@@ -35,7 +35,7 @@ def test_template_contains_all_sheets(template_path):
 def test_read_example_template(template_path):
     data, report = read_workbook(template_path)
     assert report.ok, report.errors
-    assert data.event.name == "Tech Summit 2026"
+    assert data.event.name == "Business Agility Days 2026"
     assert [s.id for s in data.speakers] == ["ada-lovelace", "alan-turing"]
     assert data.speakers[0].expertise == ["IA générative", "Algorithmique", "Gouvernance de l'IA"]
     assert len(data.sessions) == 3
