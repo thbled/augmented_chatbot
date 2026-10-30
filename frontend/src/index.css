@@ -1,23 +1,30 @@
-@import 'tailwindcss';
+﻿@import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Titres éditoriaux : serif système, aucune police à télécharger. */
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman',
+    serif;
 
-  /* Couleur de marque : bleu nuit profond, sobre et professionnel. */
-  --color-brand-50: oklch(0.97 0.014 268);
-  --color-brand-100: oklch(0.935 0.03 268);
-  --color-brand-200: oklch(0.87 0.06 268);
-  --color-brand-300: oklch(0.78 0.1 268);
-  --color-brand-400: oklch(0.68 0.145 268);
-  --color-brand-500: oklch(0.58 0.175 268);
-  --color-brand-600: oklch(0.5 0.18 268);
-  --color-brand-700: oklch(0.43 0.165 268);
-  --color-brand-800: oklch(0.36 0.13 268);
-  --color-brand-900: oklch(0.3 0.1 268);
-  --color-brand-950: oklch(0.21 0.065 268);
+  /* Fonds : papier chaud (clair) et vert très sombre (sombre). */
+  --color-canvas: #f7f6f1;
+  --color-canvas-dark: #0e1512;
+
+  /* Couleur de marque : vert forêt profond, sobre et élégant. */
+  --color-brand-50: oklch(0.97 0.012 165);
+  --color-brand-100: oklch(0.93 0.025 165);
+  --color-brand-200: oklch(0.86 0.045 165);
+  --color-brand-300: oklch(0.76 0.065 165);
+  --color-brand-400: oklch(0.65 0.075 165);
+  --color-brand-500: oklch(0.53 0.075 165);
+  --color-brand-600: oklch(0.45 0.068 165);
+  --color-brand-700: oklch(0.37 0.058 165);
+  --color-brand-800: oklch(0.31 0.048 165);
+  --color-brand-900: oklch(0.25 0.038 165);
+  --color-brand-950: oklch(0.18 0.028 165);
 
   --animate-fade-in: fade-in 220ms ease-out both;
 
@@ -47,7 +54,7 @@
   }
 
   body {
-    @apply bg-slate-50 font-sans text-slate-900 antialiased dark:bg-[#0b1020] dark:text-slate-100;
+    @apply bg-canvas font-sans text-slate-900 antialiased dark:bg-canvas-dark dark:text-slate-100;
   }
 
   :focus-visible {
@@ -75,11 +82,15 @@
   }
 
   .icon-button {
-    @apply inline-flex size-11 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-slate-200/70 hover:text-slate-900 disabled:opacity-40 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white;
+    @apply inline-flex size-11 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-black/5 hover:text-slate-900 disabled:opacity-35 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white;
   }
 
   .card {
-    @apply rounded-2xl border border-slate-200 bg-white shadow-sm shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900/70 dark:shadow-none;
+    @apply rounded-2xl border border-black/7 bg-white shadow-[0_1px_2px_rgb(0_0_0/0.03)] dark:border-white/10 dark:bg-white/4 dark:shadow-none;
+  }
+
+  .eyebrow {
+    @apply text-[0.68rem] font-medium tracking-[0.18em] text-slate-500 uppercase dark:text-slate-400;
   }
 
   .tag {

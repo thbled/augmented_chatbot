@@ -11,7 +11,9 @@ from chatbot_api.guard import inspect, normalize
 
 CASES = [
     json.loads(line)
-    for line in (Path(__file__).parent.parent / "evals" / "cases.jsonl").read_text().splitlines()
+    for line in (Path(__file__).parent.parent / "evals" / "cases.jsonl")
+    .read_text(encoding="utf-8")
+    .splitlines()
     if line
 ]
 

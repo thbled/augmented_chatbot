@@ -187,11 +187,18 @@ def program_overview(data: ConferenceData) -> str:
 
 def speakers_overview(data: ConferenceData) -> str:
     lines = [f"# Liste des speakers de {_event_label(data)}", ""]
-    published = sorted((s for s in data.speakers if s.consent), key=lambda s: s.last_name)
+    lines += [
+        "Pour présenter la liste, joindre la fiche `speaker` de chaque intervenant cité "
+        "(bloc ci-dessous), plutôt qu'une liste en texte.",
+        "",
+    ]
+    published = sorted(data.speakers, key=lambda s: s.last_name.lower())
     for speaker in published:
         role = ", ".join(part for part in (speaker.job_title, speaker.company) if part)
         expertise = f" — {', '.join(speaker.expertise)}" if speaker.expertise else ""
         lines.append(f"- **{speaker.full_name}**" + (f" ({role})" if role else "") + expertise)
+    lines += ["", "## Fiches", "", CARD_NOTE, ""]
+    lines += [card_block("speaker", s.to_card()) for s in published]
     lines.append("")
     return "\n".join(lines)
 
@@ -220,7 +227,7 @@ def event_document(data: ConferenceData) -> str:
         lines.append(f"- **Jours de programme** : {', '.join(format_day(d) for d in days)}")
     lines += [
         f"- **Nombre de sessions** : {len(data.sessions)}",
-        f"- **Nombre de speakers** : {sum(1 for s in data.speakers if s.consent)}",
+        f"- **Nombre de speakers** : {len(data.speakers)}",
         f"- **Nombre de partenaires** : {len(data.partners)}",
         "",
     ]
@@ -257,16 +264,16 @@ def build_knowledge_base(
     write("evenement.md", event_document(data))
     if data.sessions:
         write("programme.md", program_overview(data))
-    if any(s.consent for s in data.speakers):
+    if data.speakers:
         write("speakers.md", speakers_overview(data))
     if data.partners:
         write("partenaires.md", partners_overview(data))
     if data.practical:
         write("infos_pratiques.md", practical_document(data))
 
+    # Le consentement ne restreint que l'enrichissement automatique : tous publiés.
     for speaker in data.speakers:
-        if speaker.consent:
-            write(f"speakers/speaker_{speaker.id}.md", speaker_document(speaker, data))
+        write(f"speakers/speaker_{speaker.id}.md", speaker_document(speaker, data))
     for session in data.sessions:
         write(f"sessions/session_{session.id}.md", session_document(session, data))
     for partner in data.partners:
@@ -312,6 +319,8 @@ def build_scope(data: ConferenceData) -> dict[str, Any]:
         "partners": [p.name for p in data.partners],
         "sessions": [s.title for s in data.sessions],
         "contacts": official_contacts(data),
+        # Fiches des speakers : le backend les joint quand le LLM cite un nom sans sa carte.
+        "speakerCards": [s.to_card() for s in data.speakers],
     }
 
 

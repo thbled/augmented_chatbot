@@ -61,15 +61,23 @@ export function SessionCard({ session }: { session: SessionCardData }) {
           <h4 className="sr-only">{t('cards.speakers')}</h4>
           <ul className="flex flex-wrap gap-2">
             {session.speakers.map((speaker) => (
-              <li key={speaker.id ?? speaker.name} className="flex items-center gap-2">
-                <Avatar
-                  name={speaker.name}
-                  src={speaker.photoUrl}
-                  className="size-7 text-[0.65rem]"
-                />
-                <span className="text-sm font-medium text-slate-800 dark:text-slate-100">
-                  {speaker.name}
-                </span>
+              <li key={speaker.id ?? speaker.name}>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => ask(t('cards.questions.speaker', { name: speaker.name }))}
+                  aria-label={t('cards.askSpeaker', { name: speaker.name })}
+                  className="-ml-1 flex items-center gap-2 rounded-full py-0.5 pr-2.5 pl-1 transition-colors hover:bg-brand-50 disabled:opacity-60 dark:hover:bg-brand-400/10"
+                >
+                  <Avatar
+                    name={speaker.name}
+                    src={speaker.photoUrl}
+                    className="size-7 text-[0.65rem]"
+                  />
+                  <span className="text-sm font-medium text-slate-800 underline decoration-slate-300 underline-offset-2 dark:text-slate-100 dark:decoration-slate-600">
+                    {speaker.name}
+                  </span>
+                </button>
               </li>
             ))}
           </ul>

@@ -35,6 +35,31 @@ _PHONE = re.compile(r"(?:\+\d{2,3}[\s.-]?|\b0)[1-9](?:[\s.-]?\d{2}){4}\b")
 _TIME = re.compile(r"\b([01]?\d|2[0-3])\s*[h:]\s*([0-5]\d)\b|\b([01]?\d|2[0-3])\s*h\b", re.I)
 MASK = "[coordonnée masquée]"
 
+_SUGGESTIONS = re.compile(r"```suggestions[ \t]*\n.*?\n?```", re.DOTALL)
+# Élément de liste Markdown : « - **Nom** (poste) », « 1. Nom — poste ».
+_LIST_ITEM = re.compile(r"^\s*(?:[-*•+]|\d+[.)])\s+(.+)$")
+# Speakers cités dans une phrase : au-delà, la réponse invite déjà à préciser.
+MAX_EXTRA_SPEAKER_CARDS = 6
+
+
+def _card_name(card: dict) -> str:
+    name = f"{card.get('firstName', '')} {card.get('lastName', '')}".strip()
+    return fold(name or str(card.get("name", "")))
+
+
+def _speaker_at_start(item: str, cards: dict[str, dict]) -> str | None:
+    head = fold(re.sub(r"[*_`\[\]]", "", item))
+    for name in cards:
+        if head == name or (head.startswith(name) and not head[len(name)].isalnum()):
+            return name
+    return None
+
+
+def _speaker_block(cards: list[dict]) -> str:
+    payload = cards[0] if len(cards) == 1 else cards
+    return f"```speaker\n{json.dumps(payload, ensure_ascii=False)}\n```"
+
+
 # Liste volontairement courte de termes grossiers sans ambiguïté (FR/EN), à compléter.
 _PROFANITY = re.compile(
     r"\b(connard|connasse|salope|encul[ée]|fils de pute|ta gueule|nique ta|"
@@ -67,11 +92,13 @@ class CheckResult:
     removed_cards: list[str] = field(default_factory=list)
     masked_contacts: int = 0
     unverified_times: list[str] = field(default_factory=list)
+    added_cards: list[str] = field(default_factory=list)
 
     def as_debug(self) -> dict[str, object]:
         return {
             "blocked": self.blocked,
             "removedCards": self.removed_cards,
+            "addedCards": self.added_cards,
             "maskedContacts": self.masked_contacts,
             "unverifiedTimes": self.unverified_times,
         }
@@ -130,6 +157,72 @@ class OutputChecker:
 
         return _CARD_BLOCK.sub(replace, text)
 
+    # -- cartes de speakers manquantes ------------------------------------------------------
+
+    def _card_names(self, text: str) -> set[str]:
+        names: set[str] = set()
+        for match in _CARD_BLOCK.finditer(text):
+            if match.group(1) != "speaker":
+                continue
+            try:
+                data = json.loads(match.group(2))
+            except json.JSONDecodeError:
+                continue
+            for item in data if isinstance(data, list) else [data]:
+                if isinstance(item, dict):
+                    names.add(_card_name(item))
+        return names
+
+    def _add_speaker_cards(self, text: str) -> tuple[str, list[str]]:
+        """Joint la carte des speakers cités sans carte (listes Markdown ou texte).
+
+        Une ligne de liste consacrée à un speaker (« - Nom (poste) ») est remplacée par sa
+        carte ; un speaker cité dans une phrase reçoit sa carte en fin de réponse.
+        """
+        cards = {_card_name(c): c for c in self._scope.speaker_cards if _card_name(c)}
+        if not cards:
+            return text, []
+        present = self._card_names(text)
+        added: list[str] = []
+        listed: list[dict] = []
+        insert_at: int | None = None
+        lines: list[str] = []
+        in_block = False
+        for line in text.split("\n"):
+            if line.lstrip().startswith("```"):
+                in_block = not in_block
+            match = None if in_block else _LIST_ITEM.match(line)
+            name = _speaker_at_start(match.group(1), cards) if match else None
+            if name and name not in present:
+                if insert_at is None:
+                    insert_at = len(lines)
+                listed.append(cards[name])
+                present.add(name)
+                added.append(name)
+                continue
+            lines.append(line)
+        if listed and insert_at is not None:
+            lines.insert(insert_at, _speaker_block(listed))
+
+        prose = _CARD_BLOCK.sub("", "\n".join(lines))
+        prose = _SUGGESTIONS.sub("", prose)
+        mentioned = [
+            card
+            for name, card in cards.items()
+            if name not in present and re.search(rf"\b{re.escape(name)}\b", fold(prose))
+        ][:MAX_EXTRA_SPEAKER_CARDS]
+        result = "\n".join(lines)
+        if mentioned:
+            added += [_card_name(c) for c in mentioned]
+            block = _speaker_block(mentioned)
+            suggestions = _SUGGESTIONS.search(result)
+            if suggestions:
+                start = suggestions.start()
+                result = f"{result[:start].rstrip()}\n\n{block}\n\n{result[start:]}"
+            else:
+                result = f"{result.rstrip()}\n\n{block}"
+        return result, added
+
     # -- coordonnées ---------------------------------------------------------------------
 
     def _mask_contacts(self, text: str) -> tuple[str, int]:
@@ -161,8 +254,9 @@ class OutputChecker:
             return CheckResult(text="", blocked="profanity")
         removed: list[str] = []
         checked = self._filter_cards(text, removed)
+        checked, added = self._add_speaker_cards(checked)
         checked, masked = self._mask_contacts(checked)
         unverified = sorted(times_in(checked) - self._reference_times)
         if not self._reference_times:
             unverified = []  # sans planning, rien à comparer
-        return CheckResult(checked, "", removed, masked, unverified)
+        return CheckResult(checked, "", removed, masked, unverified, added)

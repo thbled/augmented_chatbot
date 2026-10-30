@@ -30,7 +30,11 @@ def checker() -> OutputChecker:
 
 
 def test_fingerprints_exist_in_system_prompt():
-    prompt = resources.files("chatbot_api.prompts").joinpath("system_prompt.md").read_text()
+    prompt = (
+        resources.files("chatbot_api.prompts")
+        .joinpath("system_prompt.md")
+        .read_text(encoding="utf-8")
+    )
     for fingerprint in PROMPT_FINGERPRINTS:
         assert fingerprint in prompt
 

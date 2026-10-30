@@ -16,17 +16,19 @@ export function Header({ theme, onToggleTheme, onNewConversation, canReset }: He
   const nextLanguage = i18n.resolvedLanguage === 'en' ? 'fr' : 'en';
 
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-slate-50/95 pt-[env(safe-area-inset-top)] backdrop-blur-md dark:border-white/10 dark:bg-[#0b1020]/95">
-      <div className="mx-auto flex h-14 max-w-3xl items-center gap-2 px-3 sm:px-4">
-        <img src="/favicon.svg" alt="" className="size-8 rounded-lg" />
+    <header className="sticky top-0 z-20 bg-canvas/85 pt-[env(safe-area-inset-top)] backdrop-blur-xl dark:bg-canvas-dark/85">
+      <div className="mx-auto flex h-16 max-w-2xl items-center gap-3 px-4">
+        <img src="/favicon.svg" alt="" className="size-8 rounded-[0.6rem]" />
         <div className="min-w-0 flex-1 leading-tight">
-          <h1 className="truncate text-[0.95rem] font-semibold text-slate-900 dark:text-white">
+          <h1 className="truncate text-[0.92rem] font-semibold tracking-tight text-slate-900 dark:text-white">
             {EVENT_NAME}
           </h1>
-          <p className="truncate text-xs text-slate-500 dark:text-slate-400">{t('app.subtitle')}</p>
+          <p className="truncate text-xs text-slate-500 dark:text-slate-400">
+            {t('app.subtitle')}
+          </p>
         </div>
 
-        <div className="flex items-center">
+        <nav className="-mr-2 flex items-center" aria-label={t('header.actions')}>
           <button
             type="button"
             className="icon-button"
@@ -35,11 +37,11 @@ export function Header({ theme, onToggleTheme, onNewConversation, canReset }: He
             aria-label={t('header.newConversation')}
             title={t('header.newConversation')}
           >
-            <SquarePen aria-hidden="true" className="size-5" />
+            <SquarePen aria-hidden="true" className="size-[1.15rem]" />
           </button>
           <button
             type="button"
-            className="icon-button text-sm font-semibold"
+            className="icon-button text-xs font-semibold tracking-wider"
             onClick={() => void i18n.changeLanguage(nextLanguage)}
             aria-label={t('header.switchLanguage')}
             title={t('header.switchLanguage')}
@@ -55,13 +57,14 @@ export function Header({ theme, onToggleTheme, onNewConversation, canReset }: He
             title={theme === 'dark' ? t('header.themeToLight') : t('header.themeToDark')}
           >
             {theme === 'dark' ? (
-              <Sun aria-hidden="true" className="size-5" />
+              <Sun aria-hidden="true" className="size-[1.15rem]" />
             ) : (
-              <Moon aria-hidden="true" className="size-5" />
+              <Moon aria-hidden="true" className="size-[1.15rem]" />
             )}
           </button>
-        </div>
+        </nav>
       </div>
+      <div className="mx-auto h-px max-w-2xl bg-black/[0.06] dark:bg-white/[0.07]" />
     </header>
   );
 }

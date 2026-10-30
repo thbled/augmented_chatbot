@@ -89,7 +89,9 @@ class SessionSpeaker:
 
     @property
     def is_published(self) -> bool:
-        return self.speaker is not None and self.speaker.consent
+        # Le consentement ne concerne que la collecte automatique (LinkedIn) : toute
+        # donnée saisie dans le classeur est publiable.
+        return self.speaker is not None
 
 
 @dataclass

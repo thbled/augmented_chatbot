@@ -4,18 +4,21 @@ from __future__ import annotations
 
 import json
 import logging
+import time
+import uuid
 from collections.abc import Iterator
 from typing import Any
 from urllib.parse import quote
 
 from dotenv import load_dotenv
-from flask import Flask, Response, jsonify, request
+from flask import Flask, Response, g, jsonify, request
 
 from chatbot_api import guard
 from chatbot_api.clock import EventClock
 from chatbot_api.config import Settings
 from chatbot_api.laya_guard import LayaGuard
 from chatbot_api.llm import ChatClient, LLMError, OpenAICompatibleClient, ReplaceText
+from chatbot_api.logging_setup import TraceWriter, configure_logging
 from chatbot_api.output_guard import OutputChecker, new_canary
 from chatbot_api.planning import PlanningClient
 from chatbot_api.rate_limit import RateLimiter, build_rate_limiter, hash_client_ip
@@ -61,7 +64,11 @@ def create_app(
     planning: PlanningClient | None = None,
 ) -> Flask:
     load_dotenv()
+    configure_logging()
     settings = settings or Settings.from_env()
+    tracer = TraceWriter(settings.trace_file)
+    if tracer.enabled:
+        logger.info("Traces de diagnostic activées : %s", settings.trace_file)
     chat_client = chat_client or build_chat_client(settings)
     rate_limiter = rate_limiter or build_rate_limiter(settings)
     clock = clock or EventClock(settings)
@@ -88,13 +95,22 @@ def create_app(
         response.headers.update(headers or {})
         return response
 
+    @app.before_request
+    def start_request() -> None:
+        # Identifiant fourni par le client (scripts de test) ou généré : relie console et traces.
+        rid = request.headers.get("X-Request-Id", "")[:64].strip()
+        g.request_id = rid or uuid.uuid4().hex[:12]
+        g.started = time.perf_counter()
+
     @app.after_request
     def add_headers(response: Response) -> Response:
         response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Request-Id"] = g.get("request_id", "")
         origin = request.headers.get("Origin")
         if origin and origin in settings.cors_origins:
             response.headers["Access-Control-Allow-Origin"] = origin
-            response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+            response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Request-Id"
+            response.headers["Access-Control-Expose-Headers"] = "X-Request-Id"
             response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
             response.headers["Vary"] = "Origin"
         return response
@@ -127,24 +143,36 @@ def create_app(
         question = chat_request.messages[-1].content
         # En-têtes de diagnostic (développement) : décisions des garde-fous.
         debug: dict[str, str] = {}
+        # Trace complète (TRACE_FILE) : écrite à la fin de la diffusion.
+        trace: dict[str, Any] = {
+            "request_id": g.get("request_id"),
+            "locale": locale,
+            "question": question,
+            "history": len(chat_request.messages) - 1,
+            "stage": "llm",
+        }
 
         if settings.guard_enabled:
             verdict = guard.inspect(guard.normalize(question))
             debug["X-Guard"] = verdict.category or "allow"
+            trace["guard"] = verdict.category or "allow"
             if not verdict.allowed:
                 # Journal technique anonyme : la catégorie seulement, jamais le texte.
                 logger.info("Question bloquée par le filtre (catégorie : %s)", verdict.category)
                 refusal = guard.refusal_message(locale)
-                return stream(iter([refusal]), limit.remaining, debug, locale)
+                trace["stage"] = "guard"
+                return stream(iter([refusal]), limit.remaining, debug, locale, trace=trace)
 
         if laya is not None:
             laya_verdict = laya.check(guard.normalize(question))
             if laya_verdict:
                 debug["X-Laya"] = laya_verdict.header
+                trace["laya"] = {"score": laya_verdict.score, "flagged": laya_verdict.flagged}
                 if laya_verdict.flagged:
                     logger.info("Question bloquée par LAYA (score : %.2f)", laya_verdict.score)
                     refusal = guard.refusal_message(locale)
-                    return stream(iter([refusal]), limit.remaining, debug, locale)
+                    trace["stage"] = "laya"
+                    return stream(iter([refusal]), limit.remaining, debug, locale, trace=trace)
 
         standalone = None
         if router is not None:
@@ -152,10 +180,17 @@ def create_app(
             debug["X-Router-Verdict"] = decision.verdict
             debug["X-Router-Source"] = decision.source
             debug["X-Router-Question"] = quote(decision.question)
+            trace["router"] = {
+                "verdict": decision.verdict,
+                "source": decision.source,
+                "question": decision.question,
+                "allowed": decision.allowed,
+            }
             if not decision.allowed:
                 logger.info("Question refusée par le routeur (verdict : %s)", decision.verdict)
                 refusal = guard.refusal_message(locale, decision.verdict)
-                return stream(iter([refusal]), limit.remaining, debug, locale)
+                trace["stage"] = "router"
+                return stream(iter([refusal]), limit.remaining, debug, locale, trace=trace)
             standalone = decision.question
 
         turn = turns.build(chat_request, standalone)
@@ -166,7 +201,10 @@ def create_app(
             turn.planning_titles,
         )
         debug["X-Facts"] = str(len(turn.facts))
-        return stream(chat_client.stream_reply(turn), limit.remaining, debug, locale, checker)
+        trace["facts"] = len(turn.facts)
+        return stream(
+            chat_client.stream_reply(turn), limit.remaining, debug, locale, checker, trace
+        )
 
     def stream(
         chunks: Iterator[str | ReplaceText],
@@ -174,8 +212,20 @@ def create_app(
         debug: dict[str, str],
         locale: str,
         checker: OutputChecker | None = None,
+        trace: dict[str, Any] | None = None,
     ) -> Response:
+        trace = trace if trace is not None else {}
+        started = g.get("started", time.perf_counter())
+
         def generate() -> Iterator[str]:
+            try:
+                yield from produce()
+            finally:
+                if tracer.enabled:
+                    trace["duration_ms"] = round((time.perf_counter() - started) * 1000)
+                    tracer.write(trace)
+
+        def produce() -> Iterator[str]:
             text = ""  # texte affiché côté client à cet instant
             try:
                 for chunk in chunks:
@@ -188,24 +238,31 @@ def create_app(
                     if checker and checker.leaked(text):
                         # Fuite du prompt : diffusion coupée immédiatement.
                         logger.warning("Réponse interrompue : fuite du prompt détectée")
-                        yield sse_event({"type": "replace", "text": guard.refusal_message(locale)})
+                        trace.update(stage="output_leak", raw=text)
+                        trace["answer"] = guard.refusal_message(locale)
+                        yield sse_event({"type": "replace", "text": trace["answer"]})
                         yield sse_event({"type": "done"})
                         return
             except LLMError as exc:
+                trace.update(error=exc.code, raw=text)
                 yield sse_event({"type": "error", "code": exc.code})
                 return
-            except Exception:
+            except Exception as exc:
                 logger.exception("Erreur inattendue pendant la génération")
+                trace.update(error="internal_error", exception=repr(exc), raw=text)
                 yield sse_event({"type": "error", "code": "internal_error"})
                 return
 
+            final = text
             if checker:
                 result = checker.check(text)
+                trace["output"] = result.as_debug()
                 if result.blocked:
                     logger.warning(
                         "Réponse remplacée par le contrôle de sortie (%s)", result.blocked
                     )
                     final = guard.refusal_message(locale)
+                    trace["stage"] = "output_blocked"
                 else:
                     final = result.text
                     if result.removed_cards or result.masked_contacts:
@@ -219,9 +276,11 @@ def create_app(
                             "Horaires non vérifiés : %s", ", ".join(result.unverified_times)
                         )
                 if final != text:
+                    trace["raw"] = text
                     yield sse_event({"type": "replace", "text": final})
                 if settings.debug_headers:
                     yield sse_event({"type": "debug", "output": result.as_debug()})
+            trace["answer"] = final
             yield sse_event({"type": "done"})
 
         headers = {

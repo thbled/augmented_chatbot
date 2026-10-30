@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+﻿import { useCallback, useEffect, useState } from 'react';
 
 import { STORAGE_KEYS } from '../config';
 import { readString, writeString } from '../lib/storage';
 
 export type Theme = 'light' | 'dark';
 
-const THEME_COLORS: Record<Theme, string> = { light: '#f8fafc', dark: '#0b1020' };
+const THEME_COLORS: Record<Theme, string> = { light: '#f7f6f1', dark: '#0e1512' };
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 
 function storedTheme(): Theme | null {

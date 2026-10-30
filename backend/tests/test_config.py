@@ -18,6 +18,10 @@ def clean_env(monkeypatch):
         "KV_REST_API_URL",
         "UPSTASH_REDIS_REST_URL",
         "CORS_ORIGINS",
+        # Posées par load_dotenv() (create_app) dans d'autres tests si backend/.env existe.
+        "WS_WORKSPACE_ID",
+        "WS_URL",
+        "WS_HISTORY_IN",
     ]:
         monkeypatch.delenv(name, raising=False)
 

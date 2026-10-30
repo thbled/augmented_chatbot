@@ -1,0 +1,563 @@
+{
+  "eventName": "Business Agility days 2026",
+  "themes": [
+    "IA générative",
+    "Data",
+    "Cloud",
+    "Cybersécurité"
+  ],
+  "speakers": [
+    "- -",
+    "Amine Benali",
+    "Arnault Bellina",
+    "Christophe Chen",
+    "Cécile Auret",
+    "Cédric Raynaud",
+    "Daphne d'Arboussier",
+    "David Gabay",
+    "Fabien Senlanne",
+    "Florence Mazars",
+    "Franck Beulé",
+    "Giulio Iannazzo",
+    "Giulio Lannazzo",
+    "Grégory Montaigne",
+    "Lionel Chaine",
+    "Ludovic Lefebvre",
+    "Ludovic Toinel",
+    "Marta Thongsavarn",
+    "Mokrane Oulmes",
+    "Nicolas Govindaraju",
+    "Nicolas Richeton",
+    "Odile Joseph Moreau",
+    "Sarah Pol",
+    "Tanguy LE BARBER",
+    "Thierry Loras",
+    "Thomas Salhi",
+    "Youssri Abdou"
+  ],
+  "partners": [
+    "Capgemini",
+    "Scaled Agile Inc.",
+    "Pluxee",
+    "Cdiscount",
+    "Atlassian",
+    "Crédit Agricole Leasing & Factoring",
+    "France travail",
+    "Renault",
+    "TotalEnergies",
+    "Planview",
+    "L'Oréal",
+    "La poste"
+  ],
+  "sessions": [
+    "BUSINESS AGILITY DAY\nTop Management Capgemini",
+    "Présentation des sponsors",
+    "changement de speaker",
+    "KeyNote : One Capgemini \nDe l'IA assistante à l'IA pilote : repenser le delivery à l'ère de l'Agentic",
+    "changement de speaker",
+    "Scaled Agile, Inc. \nSAFe AI NATIVE ENTREPRISE",
+    "PAUSE",
+    "REX  AI@Pluxee – L’IA au cœur d’un cycle de vie du développement logiciel (SDLC) repensé pour délivrer de la valeur à grande échelle",
+    "changement de speaker",
+    "Product Management augmenté par l’IA\nPeaksys (Cdiscount)",
+    "ATLASSIAN \nNew ways of Working avec l'IA",
+    "L'IA comme bien commun : construire, partager et accélérer avec ROVO à la CAL&F (Crédit Agricole Leasing & Factoring )",
+    "Pause déjeuner",
+    "Du budget sous tension à l’alignement stratégique : le pouvoir du budget participatif France TRAVAIL",
+    "Microsoft + Démo Client",
+    "changement de speaker",
+    "La Data Gouvernance chez Renault : un pré-requis pour une IA performante \nRenault",
+    "changement de speaker",
+    "TOTAL ENERGIES MIRA",
+    "changement de speaker",
+    "L'agilité Augmentée : Quand l'IA donne des supers pouvoirs aux équipes PLANVIEW",
+    "Pause",
+    "Passer du pilote au passage à l'échelle : comment déployer et gouverner une Factory Agentique dans 41 pays - L'Oréal",
+    "« Où passe la valeur créée par l’IA ? ». La Poste",
+    "L’IA ne remplace pas la gestion des connaissances. Elle la rend stratégique.",
+    "Scribing de Gilbert",
+    "Remerciements et Mots de la fin",
+    "Networking et apéritif de cloture"
+  ],
+  "contacts": [],
+  "speakerCards": [
+    {
+      "firstName": "-",
+      "lastName": "-",
+      "company": "Microsoft",
+      "bio": "Biographie non renseignée"
+    },
+    {
+      "id": "youssri-abdou",
+      "firstName": "Youssri",
+      "lastName": "Abdou",
+      "jobTitle": "Partner Solution Architect, AI & Cloud Platform",
+      "company": "ATLASSIAN",
+      "bio": "En tant que Senior Partner Solutions Architect chez Atlassian, Youssri accompagne les partenaires stratégiques de la région EMEA dans la conception et le déploiement de solutions d'entreprise à grande échelle. Son action s'articule autour de la plateforme Cloud, de la planification stratégique et de l'orchestration de flux de travail augmentés par l'IA, afin d'accélérer la modernisation des organisations et de repenser leurs modèles de collaboration. Il s'appuie sur plus de 14 ans d'expertise en transformation digitale, agilité à l'échelle et pilotage de grands programmes, développée au fil…",
+      "linkedinUrl": "https://www.linkedin.com/in/abdouyoussri/"
+    },
+    {
+      "id": "ludovic-lefebvre",
+      "firstName": "Ludovic",
+      "lastName": "Lefebvre",
+      "jobTitle": "AI Platform Owner",
+      "company": "Peaksys (Cdiscount)",
+      "photoUrl": "https://www.linkedin.com/in/ludovic-lefebvre/",
+      "bio": "Biographie non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/ludovic-lefebvre/",
+      "sessions": [
+        {
+          "id": "product-management-augmente-par-lia-peaksys-cdis",
+          "title": "Product Management augmenté par l’IA\nPeaksys (Cdiscount)",
+          "date": "2026-11-18",
+          "start": "11:04",
+          "end": "11:34"
+        }
+      ]
+    },
+    {
+      "id": "cecile-auret",
+      "firstName": "Cécile",
+      "lastName": "Auret",
+      "jobTitle": "Agile change agent",
+      "company": "France TRAVAIL",
+      "photoUrl": "https://www.linkedin.com/in/auret/",
+      "bio": "Biographie non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/auret/",
+      "sessions": [
+        {
+          "id": "du-budget-sous-tension-a-lalignement-strategique",
+          "title": "Du budget sous tension à l’alignement stratégique : le pouvoir du budget participatif France TRAVAIL",
+          "date": "2026-11-18",
+          "start": "13:44",
+          "end": "14:14"
+        }
+      ]
+    },
+    {
+      "id": "arnault-bellina",
+      "firstName": "Arnault",
+      "lastName": "Bellina",
+      "jobTitle": "VP - Head of Operations ADM France / Spain",
+      "company": "Capgemini",
+      "bio": "Arnault est VP, Head Indus and AI chez Capgemini. Il travaille notamment sur la transformation des modèles de delivery et l’industrialisation de l’IA au cœur des opérations et des projets, avec un objectif : transformer concrètement les façons de travailler et accélérer la création de valeur",
+      "linkedinUrl": "https://www.linkedin.com/in/arnault-bellina-capgemini/",
+      "sessions": [
+        {
+          "id": "total-energies-mira",
+          "title": "TOTAL ENERGIES MIRA",
+          "date": "2026-11-18",
+          "start": "15:18",
+          "end": "15:48"
+        }
+      ]
+    },
+    {
+      "id": "amine-benali",
+      "firstName": "Amine",
+      "lastName": "Benali",
+      "jobTitle": "Director, Value Engineering Europe",
+      "company": "ATLASSIAN",
+      "bio": "Biographie non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/amine-benali-planview/",
+      "sessions": [
+        {
+          "id": "l-agilite-augmentee-quand-l-ia-donne-des-supers",
+          "title": "L'agilité Augmentée : Quand l'IA donne des supers pouvoirs aux équipes PLANVIEW",
+          "date": "2026-11-18",
+          "start": "15:50",
+          "end": "16:20"
+        }
+      ]
+    },
+    {
+      "id": "franck-beule",
+      "firstName": "Franck",
+      "lastName": "Beulé",
+      "jobTitle": "Master Data Leader",
+      "company": "Renault Group",
+      "photoUrl": "https://www.agileenseine.com/speaker/franck-beule/",
+      "bio": "J’accompagne les organisations dans la définition et le déploiement de stratégies Data, IA et de transformation à grande échelle. Avec plus de 30 ans d’expérience, j’ai accompagné des programmes jusqu’à 500 personnes et piloté des projets de niveau entreprise. Ma double compétence organisationnelle et opérationnelle, associée à mon expertise Data et IA, me permet d’aborder les sujets complexes avec une vision globale et pragmatique. https://www.agileenseine.com/speaker/franck-beule/",
+      "linkedinUrl": "https://www.linkedin.com/in/franckbeule/",
+      "sessions": [
+        {
+          "id": "la-data-gouvernance-chez-renault-un-pre-requis-p",
+          "title": "La Data Gouvernance chez Renault : un pré-requis pour une IA performante \nRenault",
+          "date": "2026-11-18",
+          "start": "14:46",
+          "end": "15:16"
+        }
+      ]
+    },
+    {
+      "id": "lionel-chaine",
+      "firstName": "Lionel",
+      "lastName": "Chaine",
+      "jobTitle": "Directeur des Systèmes d'Information",
+      "company": "Bpifrance",
+      "bio": "Biographie non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/lionelchaine/",
+      "sessions": [
+        {
+          "id": "lia-ne-remplace-pas-la-gestion-des-connaissances",
+          "title": "L’IA ne remplace pas la gestion des connaissances. Elle la rend stratégique.",
+          "date": "2026-11-18",
+          "start": "17:30",
+          "end": "18:00"
+        }
+      ]
+    },
+    {
+      "id": "christophe-chen",
+      "firstName": "Christophe",
+      "lastName": "Chen",
+      "jobTitle": "Global Chief Data Governance",
+      "company": "Renault Group",
+      "photoUrl": "https://www.agileenseine.com/speaker/christophe-chen/",
+      "bio": "Domaines & Experiences – Global Data Governance + Stratégie Data d’entreprise (business, technique, organisationnelle...) + Innovation & transformation digitale + Data gouvernance (règlementation, sécurité, cartographie, catalogue, dictionnaire, modele de données, règles de partage des données, diffusion transverse dans l’entreprise, accès, qualité de la donnée, valorisation du patrimoine informationnel, accompagnement de tous les acteurs data) + Analyses, études, bi et marketing + Géomarketing and stratégie marketing + Telecommunications et Réseaux + Activités Transverses + Coordination…",
+      "linkedinUrl": "https://www.linkedin.com/in/christophechen/",
+      "sessions": [
+        {
+          "id": "la-data-gouvernance-chez-renault-un-pre-requis-p",
+          "title": "La Data Gouvernance chez Renault : un pré-requis pour une IA performante \nRenault",
+          "date": "2026-11-18",
+          "start": "14:46",
+          "end": "15:16"
+        }
+      ]
+    },
+    {
+      "id": "daphne-d-arboussier",
+      "firstName": "Daphne",
+      "lastName": "d'Arboussier",
+      "jobTitle": "Principal - AI Change Agent - SPC",
+      "company": "Capgemini",
+      "bio": "Daphné est issue du conseil, elle accompagne les transformations et contribue à faire le lien entre stratégie, organisation et exécution",
+      "linkedinUrl": "https://www.linkedin.com/in/daphne-d-arboussier%E2%99%A0-bb9a984a/",
+      "sessions": [
+        {
+          "id": "l-agilite-augmentee-quand-l-ia-donne-des-supers",
+          "title": "L'agilité Augmentée : Quand l'IA donne des supers pouvoirs aux équipes PLANVIEW",
+          "date": "2026-11-18",
+          "start": "15:50",
+          "end": "16:20"
+        }
+      ]
+    },
+    {
+      "id": "david-gabay",
+      "firstName": "David",
+      "lastName": "Gabay",
+      "jobTitle": "VICE PRESIDENT BUSINESS ADVISOR\nApps France Practice BTS",
+      "company": "Capgemini",
+      "photoUrl": "https://portfolio-brown-sigma-84.vercel.app/",
+      "bio": "David aide les directions de grands groupes à faire passer l’IA à l’échelle, fort de son expérience des transformations Agile et SAFe®. 23 ans chez Capgemini, du code à la transformation d’entreprise ; aujourd’hui Head of Presales & Solutioning du Center of Excellence BTS.",
+      "linkedinUrl": "https://www.linkedin.com/in/david-gabay-76b2643/",
+      "sessions": [
+        {
+          "id": "business-agility-day-top-management-capgemini",
+          "title": "BUSINESS AGILITY DAY\nTop Management Capgemini",
+          "date": "2026-11-18",
+          "start": "08:30",
+          "end": "08:45"
+        }
+      ]
+    },
+    {
+      "id": "nicolas-govindaraju",
+      "firstName": "Nicolas",
+      "lastName": "Govindaraju",
+      "jobTitle": "AI Change Agent - RTE",
+      "company": "Capgemini",
+      "bio": "Nicolas est Agile Coach, SPC et RTE chez Capgemini. Il travaille notamment sur la transformation des modèles de delivery par l’IA agentique, avec un rôle de Change Agent visant à accompagner concrètement les équipes dans l’évolution de leurs pratiques et la mesure associée.",
+      "linkedinUrl": "https://www.linkedin.com/in/nicolas-govindaraju-b1706634/",
+      "sessions": [
+        {
+          "id": "total-energies-mira",
+          "title": "TOTAL ENERGIES MIRA",
+          "date": "2026-11-18",
+          "start": "15:18",
+          "end": "15:48"
+        }
+      ]
+    },
+    {
+      "id": "odile-joseph-moreau",
+      "firstName": "Odile",
+      "lastName": "Joseph Moreau",
+      "jobTitle": "Strategic Advisor & Agile@Scale Coach",
+      "company": "SCALED AGILE INC",
+      "photoUrl": "https://www.linkedin.com/in/odilemoreau/",
+      "bio": "Biographie non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/odilemoreau/",
+      "sessions": [
+        {
+          "id": "scaled-agile-inc-safe-ai-native-entreprise",
+          "title": "Scaled Agile, Inc. \nSAFe AI NATIVE ENTREPRISE",
+          "date": "2026-11-18",
+          "start": "09:47",
+          "end": "10:17"
+        }
+      ]
+    },
+    {
+      "id": "giulio-lannazzo",
+      "firstName": "Giulio",
+      "lastName": "Lannazzo",
+      "jobTitle": "AI Solutions Architect",
+      "company": "ATLASSIAN",
+      "photoUrl": "https://capgemini.sharepoint.com/:u:/r/sites/APCS901/Shared%20Documents/Communication/BAD%202026/CONSENTEMENT/GIULIO%20Re_%20Intervention%20conjointe%20au%20Business%20Agility%20Day%20de%20Capgemini.msg?d=w117b3502ad9944a897ea70e44e574a2a&csf=1&web=1&e=2F6B7F",
+      "bio": "Giulio est Principal AI Solutions Architect chez Atlassian, où il conçoit des solutions d'IA agentique s'appuyant sur la plateforme Rovo et l'écosystème Atlassian Cloud afin d'accélérer la collaboration au sein des équipes. Fort de plus de 25 ans d'expérience, il a évolué du développement et du DevOps vers l'architecture de solutions et le conseil client, notamment chez Atlassian et Amazon Web Services. Il allie une solide expertise des architectures cloud et d'IA à une fine compréhension des enjeux métier. Il accompagne les DSI et les responsables du cycle de développement logiciel (SDLC)…",
+      "linkedinUrl": "https://www.linkedin.com/in/giulio-iannazzo-5a907115/"
+    },
+    {
+      "id": "tanguy-le-barber",
+      "firstName": "Tanguy",
+      "lastName": "LE BARBER",
+      "jobTitle": "Head of Agile | Transformation & Business Agility",
+      "company": "Crédit Agricole Leasing & Factoring (CAL&F)",
+      "photoUrl": "https://capgemini.sharepoint.com/:u:/r/sites/APCS901/Shared%20Documents/Communication/BAD%202026/CONSENTEMENT/TANGUY%20RE_%20Intervention%20conjointe%20au%20Business%20Agility%20Day%20de%20Capgemini.msg?d=w9c018c6e14454c1b82bf686ce071f470&csf=1&web=1&e=JT4pNM",
+      "bio": "Responsable de l'agilité au sein de la DSID de Crédit Agricole Leasing & Factoring, Tanguy a plusieurs années d'expérience dans la transformation des organisations, vers l'agilité et le produit. Il pilote aujourd'hui les trains agiles de l'entreprise, avec une ambition claire : la rendre plus performante et adaptative grâce à l'IAgile. Il s'intéresse de près à la façon dont l'IA change le coaching lean-agile, les méthodes et la manière de les enseigner.",
+      "linkedinUrl": "https://www.linkedin.com/in/tanguylebarber/",
+      "sessions": [
+        {
+          "id": "l-ia-comme-bien-commun-construire-partager-et-ac",
+          "title": "L'IA comme bien commun : construire, partager et accélérer avec ROVO à la CAL&F (Crédit Agricole Leasing & Factoring )",
+          "date": "2026-11-18",
+          "start": "11:54",
+          "end": "12:24"
+        }
+      ]
+    },
+    {
+      "id": "thierry-loras",
+      "firstName": "Thierry",
+      "lastName": "Loras",
+      "jobTitle": "Practice Leader - VP \nApps France Practice BTS",
+      "company": "Capgemini",
+      "photoUrl": "https://www.linkedin.com/in/thierryloras",
+      "bio": "Thierry a rejoint Capgemini en septembre 2018 après 13 ans chez AXA dans différentes entités et fonctions (DSI vie & épargne, responsable de BU IT et Program Manager) et 9 ans dans le conseil chez Accenture où il est intervenu dans différents secteurs comme les Biens de consommation, le Retail, l’Auto, et les Utilities. Au cours des 6 dernières années, Thierry a structuré et développé la Practice Insurance France & Continental Europe, et également assuré des rôles de Delivery Executive sur différents comptes FS. La conduite de programmes stratégiques de transformation lui a permis de…",
+      "linkedinUrl": "https://www.linkedin.com/in/thierryloras",
+      "sessions": [
+        {
+          "id": "business-agility-day-top-management-capgemini",
+          "title": "BUSINESS AGILITY DAY\nTop Management Capgemini",
+          "date": "2026-11-18",
+          "start": "08:30",
+          "end": "08:45"
+        }
+      ]
+    },
+    {
+      "id": "florence-mazars",
+      "firstName": "Florence",
+      "lastName": "Mazars",
+      "jobTitle": "Director of Agile Center of Excellence",
+      "company": "Renault Digital",
+      "photoUrl": "https://www.linkedin.com/in/florence-mazars/",
+      "bio": "Non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/florence-mazars/",
+      "sessions": [
+        {
+          "id": "la-data-gouvernance-chez-renault-un-pre-requis-p",
+          "title": "La Data Gouvernance chez Renault : un pré-requis pour une IA performante \nRenault",
+          "date": "2026-11-18",
+          "start": "14:46",
+          "end": "15:16"
+        }
+      ]
+    },
+    {
+      "id": "gregory-montaigne",
+      "firstName": "Grégory",
+      "lastName": "Montaigne",
+      "jobTitle": "Principal - AI Change Agent - SPC",
+      "company": "Capgemini",
+      "photoUrl": "https://capgemini.sharepoint.com/:u:/r/sites/APCS901/Shared%20Documents/Communication/BAD%202026/CONSENTEMENT/MONTAIGNE,%20Gr%C3%A9gory%20OK%20%20Speakers%20BAD%20CAP%20-%20Besoin%20de%20quelques%20%C3%A9l%C3%A9ments%20pour%20votre%20intervention.msg?d=we286aaa70c55481185aaf392dc42a370&csf=1&web=1&e=1AwtvJ",
+      "bio": "Grégory Montaigne est AI-Native Trainer, AI Change Agent et Advanced SPC. Il intervient à la convergence de l’IA et du Lean-Agile pour accompagner les organisations et transformer les modèles de delivery : mettre l’IA au service de la fluidité, de l’adaptabilité et de la création de valeur à l’échelle.",
+      "linkedinUrl": "https://www.linkedin.com/in/gmontaigne/",
+      "sessions": [
+        {
+          "id": "rex-ai-pluxee-lia-au-cur-dun-cycle-de-vie-du-dev",
+          "title": "REX  AI@Pluxee – L’IA au cœur d’un cycle de vie du développement logiciel (SDLC) repensé pour délivrer de la valeur à grande échelle",
+          "date": "2026-11-18",
+          "start": "10:32",
+          "end": "11:02"
+        }
+      ]
+    },
+    {
+      "id": "mokrane-oulmes",
+      "firstName": "Mokrane",
+      "lastName": "Oulmes",
+      "jobTitle": "Global Director Of Product & Tech Delivery",
+      "company": "PLUXEE",
+      "photoUrl": "https://www.linkedin.com/in/mokrane-oulmes-6b1b9714/",
+      "bio": "Biographie non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/mokrane-oulmes-6b1b9714/",
+      "sessions": [
+        {
+          "id": "rex-ai-pluxee-lia-au-cur-dun-cycle-de-vie-du-dev",
+          "title": "REX  AI@Pluxee – L’IA au cœur d’un cycle de vie du développement logiciel (SDLC) repensé pour délivrer de la valeur à grande échelle",
+          "date": "2026-11-18",
+          "start": "10:32",
+          "end": "11:02"
+        }
+      ]
+    },
+    {
+      "id": "sarah-pol",
+      "firstName": "Sarah",
+      "lastName": "Pol",
+      "jobTitle": "Directrice Transformation Data & IA",
+      "company": "LA POSTE GROUPE",
+      "bio": "Biographie non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/sarah-pol-data/",
+      "sessions": [
+        {
+          "id": "ou-passe-la-valeur-creee-par-lia-la-poste",
+          "title": "« Où passe la valeur créée par l’IA ? ». La Poste",
+          "date": "2026-11-18",
+          "start": "17:00",
+          "end": "17:30"
+        }
+      ]
+    },
+    {
+      "id": "cedric-raynaud",
+      "firstName": "Cédric",
+      "lastName": "Raynaud",
+      "jobTitle": "Customer Experience Director Europe",
+      "company": "L'OREAL",
+      "photoUrl": "https://www.linkedin.com/in/raynaud-c%C3%A9dric-74b2944/",
+      "bio": "Biographie non renseignée",
+      "linkedinUrl": "https://www.linkedin.com/in/raynaud-c%C3%A9dric-74b2944/",
+      "sessions": [
+        {
+          "id": "passer-du-pilote-au-passage-a-l-echelle-comment",
+          "title": "Passer du pilote au passage à l'échelle : comment déployer et gouverner une Factory Agentique dans 41 pays - L'Oréal",
+          "date": "2026-11-18",
+          "start": "16:30",
+          "end": "17:00"
+        }
+      ]
+    },
+    {
+      "id": "marta-thongsavarn",
+      "firstName": "Marta",
+      "lastName": "Thongsavarn",
+      "jobTitle": "AI Change Agent - SPC",
+      "company": "Capgemini",
+      "bio": "Marta est spécialisée en Business Agility, Lean Portfolio Management et transformation AI-Native. Elle accompagne les grandes organisations pour faire évoluer leurs operating models et transformer l’agilité et l’IA en valeur business mesurable.",
+      "linkedinUrl": "https://www.linkedin.com/in/marta-thongsavarn-2a36752b/",
+      "sessions": [
+        {
+          "id": "business-agility-day-top-management-capgemini",
+          "title": "BUSINESS AGILITY DAY\nTop Management Capgemini",
+          "date": "2026-11-18",
+          "start": "08:30",
+          "end": "08:45"
+        },
+        {
+          "id": "presentation-des-sponsors",
+          "title": "Présentation des sponsors",
+          "date": "2026-11-18",
+          "start": "08:45",
+          "end": "08:55"
+        },
+        {
+          "id": "product-management-augmente-par-lia-peaksys-cdis",
+          "title": "Product Management augmenté par l’IA\nPeaksys (Cdiscount)",
+          "date": "2026-11-18",
+          "start": "11:04",
+          "end": "11:34"
+        }
+      ]
+    },
+    {
+      "id": "fabien-senlanne",
+      "firstName": "Fabien",
+      "lastName": "Senlanne",
+      "jobTitle": "CTO Sogeti France",
+      "company": "Sogeti",
+      "bio": "Biographie non renseignée",
+      "sessions": [
+        {
+          "id": "keynote-one-capgemini-de-l-ia-assistante-a-l-ia",
+          "title": "KeyNote : One Capgemini \nDe l'IA assistante à l'IA pilote : repenser le delivery à l'ère de l'Agentic",
+          "date": "2026-11-18",
+          "start": "09:00",
+          "end": "09:45"
+        }
+      ]
+    },
+    {
+      "id": "thomas-salhi",
+      "firstName": "Thomas",
+      "lastName": "Salhi",
+      "jobTitle": "Vice President CIO Advisory & AI for CIO",
+      "company": "Capgemini",
+      "bio": "Biographie non renseignée",
+      "sessions": [
+        {
+          "id": "keynote-one-capgemini-de-l-ia-assistante-a-l-ia",
+          "title": "KeyNote : One Capgemini \nDe l'IA assistante à l'IA pilote : repenser le delivery à l'ère de l'Agentic",
+          "date": "2026-11-18",
+          "start": "09:00",
+          "end": "09:45"
+        }
+      ]
+    },
+    {
+      "id": "ludovic-toinel",
+      "firstName": "Ludovic",
+      "lastName": "Toinel",
+      "jobTitle": "Innovation architect",
+      "company": "Capgemini",
+      "bio": "Biographie non renseignée",
+      "sessions": [
+        {
+          "id": "keynote-one-capgemini-de-l-ia-assistante-a-l-ia",
+          "title": "KeyNote : One Capgemini \nDe l'IA assistante à l'IA pilote : repenser le delivery à l'ère de l'Agentic",
+          "date": "2026-11-18",
+          "start": "09:00",
+          "end": "09:45"
+        }
+      ]
+    },
+    {
+      "id": "nicolas-richeton",
+      "firstName": "Nicolas",
+      "lastName": "Richeton",
+      "jobTitle": "AI native value architect",
+      "company": "Capgemini",
+      "bio": "Biographie non renseignée",
+      "sessions": [
+        {
+          "id": "keynote-one-capgemini-de-l-ia-assistante-a-l-ia",
+          "title": "KeyNote : One Capgemini \nDe l'IA assistante à l'IA pilote : repenser le delivery à l'ère de l'Agentic",
+          "date": "2026-11-18",
+          "start": "09:00",
+          "end": "09:45"
+        }
+      ]
+    },
+    {
+      "id": "giulio-iannazzo",
+      "firstName": "Giulio",
+      "lastName": "Iannazzo",
+      "jobTitle": "Solutions Engineer",
+      "company": "?",
+      "bio": "Biographie non renseignée",
+      "sessions": [
+        {
+          "id": "l-ia-comme-bien-commun-construire-partager-et-ac",
+          "title": "L'IA comme bien commun : construire, partager et accélérer avec ROVO à la CAL&F (Crédit Agricole Leasing & Factoring )",
+          "date": "2026-11-18",
+          "start": "11:54",
+          "end": "12:24"
+        }
+      ]
+    }
+  ]
+}

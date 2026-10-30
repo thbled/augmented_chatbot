@@ -1,3 +1,4 @@
+import { ShieldCheck } from 'lucide-react';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -5,6 +6,7 @@ import { SpeakerDialog } from './components/cards/SpeakerDialog';
 import { MessageList } from './components/chat/MessageList';
 import { Composer } from './components/Composer';
 import { Header } from './components/Header';
+import { LiveSessionButton } from './components/LiveSessionButton';
 import { Welcome } from './components/Welcome';
 import { ChatActionsContext, type ChatActions } from './context/ChatActions';
 import { useChat } from './hooks/useChat';
@@ -96,7 +98,7 @@ export default function App() {
         <main
           id="conversation"
           aria-label={t('chat.conversationLabel')}
-          className="mx-auto w-full max-w-3xl flex-1 px-4 pt-4 pb-6"
+          className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-6"
         >
           {messages.length === 0 ? (
             <Welcome />
@@ -105,11 +107,18 @@ export default function App() {
           )}
         </main>
 
-        <footer className="pb-safe sticky bottom-0 z-10 bg-gradient-to-t from-slate-50 from-70% to-slate-50/0 px-3 pt-4 dark:from-[#0b1020] dark:to-[#0b1020]/0">
+        <footer className="pb-safe sticky bottom-0 z-10 bg-gradient-to-t from-canvas from-80% to-canvas/0 px-4 pt-6 dark:from-canvas-dark dark:to-canvas-dark/0">
+          {messages.length > 0 && <LiveSessionButton />}
           <Composer inputRef={composerRef} busy={isStreaming} onSend={send} onStop={stop} />
-          <p className="mx-auto mt-2 max-w-3xl px-2 text-center text-[0.7rem] leading-snug text-slate-500 dark:text-slate-400">
-            {t('app.disclaimer')}
-          </p>
+          <details className="group mx-auto mt-2 max-w-2xl text-center text-[0.7rem] text-slate-400 dark:text-slate-500">
+            <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-full px-2 py-1 transition-colors hover:text-slate-600 dark:hover:text-slate-300 [&::-webkit-details-marker]:hidden">
+              <ShieldCheck aria-hidden="true" className="size-3" />
+              {t('app.scope')}
+            </summary>
+            <p className="mx-auto mt-1 max-w-sm leading-relaxed text-slate-500 dark:text-slate-400">
+              {t('app.disclaimer')}
+            </p>
+          </details>
         </footer>
 
         <output className="sr-only" aria-live="polite" aria-atomic="true">

@@ -1,28 +1,56 @@
 {
   "app": {
-    "subtitle": "Votre assistant",
+    "subtitle": "Votre guide de l'événement",
     "skipToComposer": "Aller à la saisie du message",
     "skipToConversation": "Aller à la conversation",
-    "disclaimer": "Réponses générées par IA, à vérifier auprès de l'accueil en cas de doute. Ne saisissez pas de données personnelles."
+    "scope": "Réponses limitées à l'événement, basées sur ses données officielles.",
+    "disclaimer": "Seule la conversation en cours est transmise. Ne saisissez pas de données personnelles.",
+    "about": "À propos de l'assistant"
   },
   "header": {
     "newConversation": "Nouvelle conversation",
     "switchLanguage": "Switch to English",
     "languageShort": "EN",
     "themeToDark": "Activer le thème sombre",
-    "themeToLight": "Activer le thème clair"
+    "themeToLight": "Activer le thème clair",
+    "actions": "Actions"
   },
   "welcome": {
-    "title": "Bienvenue à {{event}}",
-    "intro": "Je vous aide à tirer le meilleur de l'événement : speakers, programme, partenaires, sujets à approfondir et informations pratiques.",
-    "starterHeading": "Pour commencer",
-    "starters": {
-      "now": "Quelles sont les activités en cours ?",
-      "speakers": "Qui sont les speakers ?",
-      "planning": "Je souhaiterais connaître le planning du salon.",
-      "planning-user": "Construis-moi un planning selon mes centres d'intérêt",
-      "partners": "Quels sont les partenaires présents ?",
-      "capabilities": "Que peux-tu faire pour moi ?"
+    "title": "Bonjour, que souhaitez-vous savoir ?",
+    "intro": "Programme, intervenants, partenaires : posez votre question sur {{event}}.",
+    "starterHeading": "Accès rapide",
+    "event": {
+      "label": "En direct",
+      "title": "La session en cours",
+      "hint": "Sujet, intervenants, points clés et questions à poser",
+      "question": "Présente-moi la session en cours : son sujet, les intervenants, les points clés et des questions pertinentes à leur poser."
+    }
+  },
+  "live": {
+    "label": "Session en cours",
+    "question": "Présente-moi la session en cours : son sujet, les intervenants, les points clés et des questions pertinentes à leur poser."
+  },
+  "quick": {
+    "label": "Questions rapides",
+    "now": {
+      "label": "L'événement",
+      "question": "Résume-moi l'événement : son thème, ses objectifs et les temps forts de la journée.",
+      "hint": "Thème, objectifs et temps forts"
+    },
+    "speakers": {
+      "label": "Speakers",
+      "question": "Qui sont les speakers de l'événement ?",
+      "hint": "Profils, expertises et interventions"
+    },
+    "planning": {
+      "label": "Planning",
+      "question": "Quel est le planning complet de la journée ?",
+      "hint": "Toute la journée"
+    },
+    "break": {
+      "label": "Pauses",
+      "question": "À quelle heure sont les pauses et le déjeuner ?",
+      "hint": "Pauses et déjeuner"
     }
   },
   "chat": {
@@ -37,7 +65,7 @@
   },
   "composer": {
     "label": "Votre question",
-    "placeholder": "Posez votre question…",
+    "placeholder": "Posez votre question sur l'événement…",
     "send": "Envoyer",
     "stop": "Arrêter la réponse",
     "remaining": "{{count}} caractères restants"

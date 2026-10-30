@@ -48,11 +48,30 @@ describe('App', () => {
     mockedStream.mockReset();
   });
 
-  it('shows the welcome screen with starter questions', () => {
+  it('shows the welcome screen with the live session and quick access', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { level: 2, name: /Bienvenue/ })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Qui sont les speakers/ })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 2, name: /que souhaitez-vous savoir/ }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /La session en cours/ })).toBeInTheDocument();
+    const quick = screen.getByRole('navigation', { name: 'Questions rapides' });
+    expect(within(quick).getByRole('button', { name: /Speakers/ })).toBeInTheDocument();
+    expect(within(quick).getByRole('button', { name: /Planning/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Nouvelle conversation' })).toBeDisabled();
+  });
+
+  it('keeps the current session one tap away during the conversation', async () => {
+    replyWith(['Réponse.']);
+    const user = userEvent.setup();
+    render(<App />);
+    await user.type(screen.getByLabelText('Votre question'), 'Bonjour{Enter}');
+    await screen.findByText('Réponse.');
+
+    expect(screen.queryByRole('navigation', { name: 'Questions rapides' })).not.toBeInTheDocument();
+    replyWith(['Keynote en cours.']);
+    await user.click(screen.getByRole('button', { name: 'Session en cours' }));
+    expect(await screen.findByText('Keynote en cours.')).toBeInTheDocument();
+    expect(payloadAt(-1).messages.at(-1)?.content).toMatch(/^Présente-moi la session en cours/);
   });
 
   it('sends a question and renders markdown, cards and suggestions', async () => {
@@ -90,7 +109,7 @@ describe('App', () => {
     replyWith(ANSWER);
     const user = userEvent.setup();
     render(<App />);
-    await user.click(screen.getByRole('button', { name: /Qui sont les speakers/ }));
+    await user.click(screen.getByRole('button', { name: /^Speakers/ }));
 
     await user.click(await screen.findByRole('button', { name: 'Voir la fiche de Ada Lovelace' }));
     const dialog = screen.getByRole('dialog', { name: 'Ada Lovelace' });
@@ -193,7 +212,7 @@ describe('App', () => {
     expect(screen.getByText('Réponse enregistrée.')).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Nouvelle conversation' }));
-    expect(screen.getByRole('heading', { name: /Bienvenue/ })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /que souhaitez-vous savoir/ })).toBeInTheDocument();
     expect(localStorage.getItem(STORAGE_KEYS.conversation)).toBeNull();
     expect(screen.getByLabelText('Votre question')).toHaveFocus();
   });
@@ -203,7 +222,7 @@ describe('App', () => {
     render(<App />);
 
     await user.click(screen.getByRole('button', { name: 'Switch to English' }));
-    expect(await screen.findByRole('heading', { name: /Welcome to/ })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /what would you like to know/ })).toBeInTheDocument();
     expect(document.documentElement.lang).toBe('en');
     expect(localStorage.getItem(STORAGE_KEYS.language)).toBe('en');
 

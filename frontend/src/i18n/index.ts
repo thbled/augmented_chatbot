@@ -24,7 +24,8 @@ void i18n
     load: 'languageOnly',
     interpolation: { escapeValue: false },
     detection: {
-      order: ['localStorage', 'navigator'],
+      // Français par défaut : l'anglais n'est utilisé que s'il a été choisi explicitement.
+      order: ['localStorage'],
       lookupLocalStorage: STORAGE_KEYS.language,
       caches: ['localStorage'],
     },

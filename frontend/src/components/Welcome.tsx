@@ -1,71 +1,63 @@
-import {
-  Building2,
-  CalendarClock,
-  CalendarDays,
-  CircleHelp,
-  Route,
-  Users,
-  type LucideIcon,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { EVENT_NAME } from '../config';
 import { useChatActions } from '../context/ChatActions';
+import { QuickActions } from './QuickActions';
 
-const STARTERS: { key: string; icon: LucideIcon }[] = [
-  { key: 'now', icon: CalendarClock },
-  { key: 'speakers', icon: Users },
-  { key: 'planning', icon: CalendarDays },
-  { key: 'partners', icon: Building2 },
-  { key: 'planning-user', icon: Route },
-  { key: 'capabilities', icon: CircleHelp },
-];
-
+/** Accueil sobre : salutation, résumé de l'événement mis en avant, accès pratiques. */
 export function Welcome() {
   const { t } = useTranslation();
   const { ask, busy } = useChatActions();
 
   return (
-    <section aria-labelledby="welcome-title" className="animate-fade-in py-4 sm:py-10">
-      <div className="mb-8">
-        <p className="mb-3 inline-flex items-center rounded-full bg-brand-100 px-3 py-1 text-xs font-semibold tracking-wide text-brand-800 uppercase dark:bg-brand-400/15 dark:text-brand-200">
-          {t('app.subtitle')}
-        </p>
-        <h2
-          id="welcome-title"
-          className="text-2xl font-semibold tracking-tight text-balance text-slate-900 sm:text-3xl dark:text-white"
-        >
-          {t('welcome.title', { event: EVENT_NAME })}
-        </h2>
-        <p className="mt-3 max-w-prose leading-relaxed text-pretty text-slate-600 dark:text-slate-300">
-          {t('welcome.intro')}
-        </p>
-      </div>
+    <section
+      aria-labelledby="welcome-title"
+      className="flex min-h-[calc(100dvh-14rem)] animate-fade-in flex-col pt-10 sm:pt-16"
+    >
+      <h2
+        id="welcome-title"
+        className="text-[1.65rem] leading-tight font-semibold tracking-tight text-balance text-slate-900 sm:text-[2rem] dark:text-white"
+      >
+        {t('welcome.title')}
+      </h2>
+      <p className="mt-2.5 max-w-md text-[0.95rem] leading-relaxed text-pretty text-slate-500 dark:text-slate-400">
+        {t('welcome.intro', { event: EVENT_NAME })}
+      </p>
 
-      <h3 className="mb-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
-        {t('welcome.starterHeading')}
-      </h3>
-      <ul className="grid gap-2.5 sm:grid-cols-2">
-        {STARTERS.map(({ key, icon: Icon }) => {
-          // L'heure n'est jamais fournie par le téléphone : le serveur l'ajoute lui-même.
-          const question = t(`welcome.starters.${key}`);
-          return (
-            <li key={key}>
-              <button
-                type="button"
-                disabled={busy}
-                onClick={() => ask(question)}
-                className="card flex min-h-14 w-full items-center gap-3 px-4 py-3 text-left font-medium text-slate-800 transition-colors hover:border-brand-300 hover:bg-brand-50/50 disabled:opacity-60 dark:text-slate-100 dark:hover:border-brand-400/40 dark:hover:bg-brand-400/10"
-              >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 dark:bg-brand-400/15 dark:text-brand-200">
-                  <Icon aria-hidden="true" className="size-5" />
-                </span>
-                {question}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="mt-auto space-y-3 pt-12">
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => ask(t('welcome.event.question'))}
+          className="group relative w-full overflow-hidden rounded-2xl bg-brand-900 p-5 text-left text-white shadow-[0_8px_24px_-12px_rgb(20_50_40/0.5)] transition hover:bg-brand-800 disabled:opacity-60 dark:bg-brand-800 dark:hover:bg-brand-700"
+        >
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-10 -right-10 size-36 rounded-full bg-brand-400/20 blur-2xl"
+          />
+          <span className="relative inline-flex items-center gap-2 text-[0.7rem] font-medium tracking-[0.12em] text-brand-200 uppercase">
+            <span aria-hidden="true" className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400/70 motion-reduce:hidden" />
+              <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+            </span>
+            {t('welcome.event.label')}
+          </span>
+          <span className="relative mt-2 flex items-center justify-between gap-3">
+            <span>
+              <span className="block text-[1.05rem] font-semibold">{t('welcome.event.title')}</span>
+              <span className="mt-0.5 block text-[0.83rem] text-brand-100/80">
+                {t('welcome.event.hint')}
+              </span>
+            </span>
+            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:bg-white/20">
+              <ArrowRight aria-hidden="true" className="size-4" />
+            </span>
+          </span>
+        </button>
+
+        <QuickActions />
+      </div>
     </section>
   );
 }

@@ -64,26 +64,20 @@ def test_speaker_document_contains_card(template_path, tmp_path):
     assert "consent" not in json.dumps(card)
 
 
-def test_session_card_and_unpublished_speakers(template_path, tmp_path):
+def test_speakers_without_consent_are_still_published(template_path, tmp_path):
     workbook = load_workbook(template_path)
-    workbook[SHEET_SPEAKERS]["E3"] = "Non"  # Alan Turing retire son consentement
+    workbook[SHEET_SPEAKERS]["E3"] = "Non"  # Alan Turing refuse l'enrichissement automatique
     workbook.save(template_path)
     data, _ = read_workbook(template_path)
     build_knowledge_base(data, tmp_path / "kb")
 
-    assert not (tmp_path / "kb" / "speakers" / "speaker_alan-turing.md").exists()
+    # Le consentement ne concerne que le scraping : les données du classeur sont publiées.
+    assert (tmp_path / "kb" / "speakers" / "speaker_alan-turing.md").exists()
     session_file = next((tmp_path / "kb" / "sessions").glob("*securiser*"))
     [(kind, card)] = cards_in(session_file)
     assert kind == "session"
-    # Le speaker non publié n'apparaît que par son nom, sans identifiant ni photo.
-    assert card["speakers"] == [
-        {"name": "Alan Turing"},
-        {
-            "id": "ada-lovelace",
-            "name": "Ada Lovelace",
-            "photoUrl": "/images/speakers/ada-lovelace.jpg",
-        },
-    ]
+    assert [s["name"] for s in card["speakers"]] == ["Alan Turing", "Ada Lovelace"]
+    assert all("id" in s for s in card["speakers"])
     assert card["date"] == "2026-11-12"
 
 

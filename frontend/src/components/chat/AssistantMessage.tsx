@@ -102,9 +102,9 @@ export const AssistantMessage = memo(function AssistantMessage({
     <article className="flex animate-fade-in gap-3" aria-busy={streaming}>
       <span
         aria-hidden="true"
-        className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-800 text-white shadow-sm"
+        className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-900 text-brand-100 dark:bg-brand-800"
       >
-        <Sparkles className="size-4" />
+        <Sparkles className="size-3.5" strokeWidth={2} />
       </span>
       <div className="min-w-0 flex-1 space-y-3">
         <h2 className="sr-only">{t('chat.assistant')}</h2>

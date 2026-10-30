@@ -26,16 +26,19 @@ export function SuggestionChips({ suggestions, heading }: SuggestionChipsProps) 
       >
         {heading ?? t('chat.suggestionsLabel')}
       </h3>
-      <ul className="flex flex-wrap gap-2">
+      <ul className="flex flex-col items-start gap-1.5">
         {suggestions.map((suggestion) => (
           <li key={suggestion}>
             <button
               type="button"
               disabled={busy}
               onClick={() => ask(suggestion)}
-              className="inline-flex min-h-11 items-center gap-2 rounded-2xl border border-brand-200 bg-white px-4 py-2 text-left text-sm font-medium text-brand-800 shadow-sm shadow-slate-900/5 transition-colors hover:border-brand-400 hover:bg-brand-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-brand-400/30 dark:bg-white/5 dark:text-brand-100 dark:shadow-none dark:hover:border-brand-300/60 dark:hover:bg-brand-400/10"
+              className="group inline-flex min-h-10 items-center gap-2 rounded-xl px-3 py-2 text-left text-[0.88rem] text-slate-700 ring-1 ring-black/8 transition hover:bg-white hover:text-brand-800 hover:ring-brand-300 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-200 dark:ring-white/10 dark:hover:bg-white/5 dark:hover:text-brand-100"
             >
-              <CornerDownRight aria-hidden="true" className="size-4 shrink-0 opacity-70" />
+              <CornerDownRight
+                aria-hidden="true"
+                className="size-3.5 shrink-0 text-slate-400 group-hover:text-brand-600"
+              />
               {frenchSpacing(suggestion)}
             </button>
           </li>

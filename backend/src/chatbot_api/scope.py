@@ -42,11 +42,19 @@ class Scope:
     sessions: list[str] = field(default_factory=list)
     # Coordonnées officielles (e-mails, téléphones) que l'assistant peut communiquer.
     contacts: list[str] = field(default_factory=list)
+    # Cartes des speakers (JSON du classeur), jointes par le code si le LLM les omet.
+    speaker_cards: list[dict] = field(default_factory=list)
 
     def with_sessions(self, titles: list[str]) -> Scope:
         merged = list(dict.fromkeys([*self.sessions, *titles]))
         return Scope(
-            self.event_name, self.themes, self.speakers, self.partners, merged, self.contacts
+            self.event_name,
+            self.themes,
+            self.speakers,
+            self.partners,
+            merged,
+            self.contacts,
+            self.speaker_cards,
         )
 
     @property
@@ -98,6 +106,7 @@ def parse_scope(data: object) -> Scope:
         partners=_str_list(data.get("partners")),
         sessions=_str_list(data.get("sessions")),
         contacts=_str_list(data.get("contacts")),
+        speaker_cards=[c for c in data.get("speakerCards") or [] if isinstance(c, dict)],
     )
 
 

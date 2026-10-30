@@ -350,8 +350,8 @@ INSTRUCTIONS = [
     "",
     "Onglets :",
     "• Événement : informations générales (une valeur par ligne).",
-    "• Speakers : un intervenant par ligne. Le consentement « Oui » est requis pour publier "
-    "la bio, la photo et le lien LinkedIn.",
+    "• Speakers : un intervenant par ligne. Toutes les données saisies sont publiées. "
+    "Le consentement « Oui » autorise seulement l'enrichissement automatique (LinkedIn).",
     "• Programme : une session par ligne. Colonne Speakers : « Prénom Nom » séparés par ;.",
     "• Partenaires : une entreprise par ligne.",
     "• Infos pratiques : une question / réponse par ligne.",
@@ -600,7 +600,8 @@ def _read_speakers(workbook, report: ReadReport) -> list[Speaker]:
         consent = is_yes(record.get("consent"))
         if not consent:
             report.warnings.append(
-                f"{where} ({first} {last}) : pas de consentement, profil non publié."
+                f"{where} ({first} {last}) : pas de consentement, profil non enrichi "
+                "automatiquement (seules les données du classeur sont publiées)."
             )
         speaker = Speaker(
             id=_unique_id(base_id, used),
@@ -614,7 +615,7 @@ def _read_speakers(workbook, report: ReadReport) -> list[Speaker]:
             bio=cell_text(record.get("bio")),
             expertise=_split_list(record.get("expertise")),
         )
-        if consent and not speaker.bio:
+        if not speaker.bio:
             report.warnings.append(f"{where} ({speaker.full_name}) : biographie vide.")
         speakers.append(speaker)
     return speakers

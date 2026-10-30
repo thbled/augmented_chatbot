@@ -1,4 +1,4 @@
-import { ArrowUp, Square } from 'lucide-react';
+import { ArrowUpRight, Square } from 'lucide-react';
 import { useRef, useState, type FormEvent, type KeyboardEvent, type RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -47,7 +47,7 @@ export function Composer({ inputRef, busy, onSend, onStop }: ComposerProps) {
   return (
     <form
       onSubmit={submit}
-      className="mx-auto flex w-full max-w-3xl items-end gap-2 rounded-[1.75rem] border border-slate-300 bg-white p-1.5 pl-4 shadow-lg shadow-slate-900/5 transition-colors focus-within:border-brand-500 dark:border-white/15 dark:bg-slate-900 dark:shadow-none dark:focus-within:border-brand-400"
+      className="mx-auto flex w-full max-w-2xl items-end gap-2 rounded-2xl border border-black/10 bg-white p-2 pl-4 shadow-[0_8px_30px_rgb(0_0_0/0.06)] transition-colors focus-within:border-brand-400 dark:border-white/12 dark:bg-white/5 dark:shadow-none dark:focus-within:border-brand-400/70"
     >
       <label htmlFor="composer" className="sr-only">
         {t('composer.label')}
@@ -70,7 +70,7 @@ export function Composer({ inputRef, busy, onSend, onStop }: ComposerProps) {
         enterKeyHint="send"
         autoComplete="off"
         aria-describedby={showCounter ? 'composer-count' : undefined}
-        className="max-h-40 min-h-11 flex-1 resize-none bg-transparent py-2.5 text-base leading-6 text-slate-900 placeholder:text-slate-500 focus:outline-none dark:text-white dark:placeholder:text-slate-400"
+        className="max-h-40 min-h-10 flex-1 resize-none bg-transparent py-2 text-base leading-6 text-slate-900 placeholder:text-slate-400 focus:outline-none dark:text-white dark:placeholder:text-slate-500"
       />
       {showCounter && (
         <span id="composer-count" className="self-center text-xs text-slate-500 tabular-nums">
@@ -82,18 +82,18 @@ export function Composer({ inputRef, busy, onSend, onStop }: ComposerProps) {
           type="button"
           onClick={onStop}
           aria-label={t('composer.stop')}
-          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+          className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
         >
-          <Square aria-hidden="true" className="size-4 fill-current" />
+          <Square aria-hidden="true" className="size-3.5 fill-current" />
         </button>
       ) : (
         <button
           type="submit"
           disabled={!value.trim()}
           aria-label={t('composer.send')}
-          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-700 text-white transition-colors hover:bg-brand-800 disabled:bg-slate-300 disabled:text-slate-600 dark:bg-brand-500 dark:hover:bg-brand-400 dark:disabled:bg-white/10 dark:disabled:text-slate-400"
+          className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-800 text-white transition-colors hover:bg-brand-900 disabled:bg-brand-800/25 disabled:text-white dark:bg-brand-400 dark:text-brand-950 dark:hover:bg-brand-300 dark:disabled:bg-white/10 dark:disabled:text-slate-500"
         >
-          <ArrowUp aria-hidden="true" className="size-5" />
+          <ArrowUpRight aria-hidden="true" className="size-5" />
         </button>
       )}
     </form>

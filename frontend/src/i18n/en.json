@@ -1,28 +1,56 @@
 {
   "app": {
-    "subtitle": "Your assistant",
+    "subtitle": "Your event guide",
     "skipToComposer": "Skip to message input",
     "skipToConversation": "Skip to conversation",
-    "disclaimer": "AI-generated answers — check with the help desk if in doubt. Please do not enter personal data."
+    "scope": "Answers limited to the event, based on its official data.",
+    "disclaimer": "Only the current conversation is sent. Please do not enter personal data.",
+    "about": "About this assistant"
   },
   "header": {
     "newConversation": "New conversation",
     "switchLanguage": "Passer en français",
     "languageShort": "FR",
     "themeToDark": "Switch to dark theme",
-    "themeToLight": "Switch to light theme"
+    "themeToLight": "Switch to light theme",
+    "actions": "Actions"
   },
   "welcome": {
-    "title": "Welcome to {{event}}",
-    "intro": "I help you make the most of the event: speakers, agenda, partners, topics to explore and practical information.",
-    "starterHeading": "Get started",
-    "starters": {
-      "now": "What are the ongoing activities?",
-      "speakers": "Who are the speakers?",
-      "planning": "I would like to know the show schedule.",
-      "planning-user": "Build me a schedule based on my interests",
-      "partners": "Which partners are attending?",
-      "capabilities": "What can you do for me?"
+    "title": "Hello, what would you like to know?",
+    "intro": "Agenda, speakers, partners: ask your question about {{event}}.",
+    "starterHeading": "Quick access",
+    "event": {
+      "label": "Live",
+      "title": "The current session",
+      "hint": "Topic, speakers, key points and questions to ask",
+      "question": "Tell me about the current session: its topic, the speakers, the key points and relevant questions to ask them."
+    }
+  },
+  "live": {
+    "label": "Current session",
+    "question": "Tell me about the current session: its topic, the speakers, the key points and relevant questions to ask them."
+  },
+  "quick": {
+    "label": "Quick questions",
+    "now": {
+      "label": "The event",
+      "question": "Summarise the event for me: its theme, goals and the highlights of the day.",
+      "hint": "Theme, goals and highlights"
+    },
+    "speakers": {
+      "label": "Speakers",
+      "question": "Who are the speakers at the event?",
+      "hint": "Profiles, expertise and talks"
+    },
+    "planning": {
+      "label": "Agenda",
+      "question": "What is the full agenda for the day?",
+      "hint": "The whole day"
+    },
+    "break": {
+      "label": "Breaks",
+      "question": "When are the breaks and lunch?",
+      "hint": "Breaks and lunch"
     }
   },
   "chat": {
@@ -37,7 +65,7 @@
   },
   "composer": {
     "label": "Your question",
-    "placeholder": "Ask your question…",
+    "placeholder": "Ask about the event…",
     "send": "Send",
     "stop": "Stop the answer",
     "remaining": "{{count}} characters left"

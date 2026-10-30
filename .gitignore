@@ -31,3 +31,5 @@ tools/linkedin_pdfs/
 *.log
 ~$*.xlsx
 backend/evals/reports/
+# Traces de diagnostic et résultats de scripts/api_probe.py (contiennent les questions)
+backend/logs/

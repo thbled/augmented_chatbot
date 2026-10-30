@@ -133,6 +133,9 @@ class Settings:
     scope_file: str = ""
     # Développement : expose les décisions des garde-fous dans des en-têtes HTTP.
     debug_headers: bool = False
+    # Développement : une ligne JSON par appel à /api/chat (question, garde-fous, réponse).
+    # Vide = désactivé. Contient le texte des questions : ne pas activer en production.
+    trace_file: str = ""
 
     # 0 = pas de limite en nombre : toute la conversation est transmise, dans la limite
     # de `max_history_chars` (les messages les plus anciens sont retirés au-delà).
@@ -210,6 +213,7 @@ class Settings:
             router_history_messages=_get_int("ROUTER_HISTORY_MESSAGES", 4),
             scope_file=os.getenv("SCOPE_FILE", "").strip(),
             debug_headers=_get_bool("DEBUG_HEADERS", False),
+            trace_file=os.getenv("TRACE_FILE", "").strip(),
             max_history_messages=_get_int("MAX_HISTORY_MESSAGES", 0),
             max_history_chars=_get_int("MAX_HISTORY_CHARS", 60000),
             history_compact_cards=_get_bool("HISTORY_COMPACT_CARDS", True),
