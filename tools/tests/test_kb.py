@@ -102,3 +102,20 @@ def test_truncate_and_format_day():
     from datetime import date
 
     assert format_day(date(2026, 11, 12)) == "jeudi 12 novembre 2026"
+
+
+def test_build_scope(template_path, tmp_path):
+    from conference_tools.kb import build_scope, write_scope
+
+    workbook = load_workbook(template_path)
+    workbook[SHEET_SPEAKERS]["E3"] = "Non"  # Alan Turing : nom conservé (programme public)
+    workbook.save(template_path)
+    data, _ = read_workbook(template_path)
+    scope = build_scope(data)
+    assert scope["eventName"] == "Business Agility Days 2026"
+    assert scope["themes"] == ["IA générative", "Data", "Cloud", "Cybersécurité"]
+    assert scope["speakers"] == ["Ada Lovelace", "Alan Turing"]
+    assert scope["partners"] == ["Acme Cloud"]
+    assert "Sécuriser ses applications LLM" in scope["sessions"]
+    path = write_scope(data, tmp_path / "out" / "scope.json")
+    assert json.loads(path.read_text())["partners"] == ["Acme Cloud"]

@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useChatActions } from '../../context/ChatActions';
-import { initials, safeUrl } from '../../lib/urls';
+import { initials, safeImageUrl } from '../../lib/urls';
 import type { PartnerCardData } from '../../types/cards';
 import { ExternalLink } from '../common/ExternalLink';
 
 function PartnerLogo({ partner }: { partner: PartnerCardData }) {
-  const url = safeUrl(partner.logoUrl);
+  const url = safeImageUrl(partner.logoUrl);
   const [failed, setFailed] = useState(false);
   return (
     <span className="flex h-14 w-20 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white p-2 dark:border-white/10">

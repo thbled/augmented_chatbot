@@ -66,8 +66,14 @@ uv run conference-tools linkedin-import --pdf-dir linkedin_pdfs
 
 ```bash
 uv run conference-tools validate
-uv run conference-tools build-kb --out kb
+uv run conference-tools build-kb --out kb            # --strict : refuse les contenus suspects
 ```
+
+**Sécurité des contenus** : les caractères invisibles sont retirés à la lecture du classeur, et
+`build-kb` signale les passages suspects (« ignore tes instructions », faux balisages, blocs de
+carte, consignes adressées à l'assistant…) dans les bios, descriptions, infos pratiques et
+documents. Une bio LinkedIn piégée pourrait sinon manipuler le LLM (injection indirecte).
+Avec `--strict`, la génération est annulée tant qu'un contenu suspect subsiste.
 
 Le dossier `kb/` (vidé à chaque génération) contient :
 
@@ -88,8 +94,31 @@ le JSON de la carte. Le LLM le recopie tel quel et l'application l'affiche en ca
 [`models.py`](src/conference_tools/models.py) et
 [`frontend/src/types/cards.ts`](../frontend/src/types/cards.ts).
 
+`build-kb` écrit aussi la **fiche de périmètre** du routeur
+(`backend/src/chatbot_api/data/scope.json` : nom de l'événement, thématiques, speakers,
+partenaires, sessions et **coordonnées officielles** — e-mails et téléphones trouvés dans
+l'onglet Événement, les infos pratiques et les partenaires, les seuls que l'assistant peut
+citer). Elle est déployée avec le backend : regénérez-la et commitez-la après
+toute modification du classeur (`--scope-out` pour un autre chemin, `--no-scope` pour ne pas
+l'écrire).
+
 Chargez ensuite le contenu de `kb/` dans la base de connaissances du serveur LLM. Conseil :
 un document = un fragment (chunk) si le serveur le permet, pour garder chaque fiche entière.
+
+## 4. Vérifier la cohérence avec le planning en direct
+
+Le planning de la régie (API REST) fait foi pour les horaires du jour. Avant l'événement,
+comparez-le au programme du classeur :
+
+```bash
+uv run conference-tools check-planning --planning-url "https://…/slots?id=…"
+# ou avec PLANNING_URL dans .env
+```
+
+Le rapport liste les sessions aux horaires différents (au-delà de `--tolerance`, 5 min par
+défaut), celles absentes du planning en direct et les créneaux présents uniquement dans le
+planning (pauses, accueil…). La comparaison porte sur l'heure locale : des données de test
+datées d'un autre jour sont donc comparables.
 
 ## Base documentaire
 

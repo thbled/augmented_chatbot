@@ -8,6 +8,7 @@ carte (JSON compact) que le LLM recopie tel quel dans ses réponses.
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from collections import defaultdict
 from datetime import date
@@ -277,3 +278,46 @@ def build_knowledge_base(
                 continue
             write(str(source.relative_to(static_dir)), source.read_text(encoding="utf-8"))
     return written
+
+
+_EMAIL = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
+_PHONE = re.compile(r"(?:\+\d{2,3}[\s.-]?|\b0)[1-9](?:[\s.-]?\d{2}){4}\b")
+
+
+def official_contacts(data: ConferenceData) -> list[str]:
+    """E-mails et téléphones publiés par l'organisation : les seuls que l'assistant peut citer."""
+    texts = [*data.event.fields.values()]
+    texts += [f"{i.title} {i.content}" for i in data.practical]
+    texts += [f"{p.description} {p.offer}" for p in data.partners]
+    found: list[str] = []
+    for text in texts:
+        found += _EMAIL.findall(text) + _PHONE.findall(text)
+    return list(dict.fromkeys(c.strip() for c in found))
+
+
+def build_scope(data: ConferenceData) -> dict[str, Any]:
+    """Fiche de périmètre pour le routeur du backend : noms et thématiques de l'événement.
+
+    Les noms des speakers sans consentement figurent aussi dans le programme public : ils
+    sont inclus (nom seul), pour qu'une question à leur sujet ne soit pas refusée.
+    """
+    themes = data.event.fields.get("Thématiques", "")
+    speakers = {s.full_name for s in data.speakers}
+    for session in data.sessions:
+        speakers.update(entry.name for entry in session.speakers if not entry.speaker)
+    return {
+        "eventName": data.event.name,
+        "themes": [t.strip() for t in themes.split(";") if t.strip()],
+        "speakers": sorted(speakers),
+        "partners": [p.name for p in data.partners],
+        "sessions": [s.title for s in data.sessions],
+        "contacts": official_contacts(data),
+    }
+
+
+def write_scope(data: ConferenceData, path: Path) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(build_scope(data), ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return path

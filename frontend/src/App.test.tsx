@@ -108,6 +108,29 @@ describe('App', () => {
     expect(lastPayload.messages.at(-1)?.content).toMatch(/^Présente-moi Ada Lovelace/);
   });
 
+  it('replaces streamed text with the final answer', async () => {
+    mockedStream.mockImplementation(async (_payload, { onDelta, onReplace }) => {
+      onDelta('Texte dans le désordre');
+      onReplace?.('Texte final **complet**');
+    });
+    const user = userEvent.setup();
+    render(<App />);
+    await user.type(screen.getByLabelText('Votre question'), 'Bonjour{Enter}');
+    expect(await screen.findByText('complet', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.queryByText('Texte dans le désordre')).not.toBeInTheDocument();
+  });
+
+  it('sends the whole conversation', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    for (let i = 0; i < 8; i++) {
+      replyWith([`Réponse ${i}`]);
+      await user.type(screen.getByLabelText('Votre question'), `Question ${i}{Enter}`);
+      await screen.findByText(`Réponse ${i}`);
+    }
+    expect(payloadAt(-1).messages).toHaveLength(15);
+  });
+
   it('shows a translated error and retries', async () => {
     mockedStream.mockRejectedValueOnce(new ChatApiError('llm_unavailable'));
     const user = userEvent.setup();

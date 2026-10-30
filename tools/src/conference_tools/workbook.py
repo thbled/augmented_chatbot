@@ -25,6 +25,7 @@ from conference_tools.models import (
     Speaker,
     slugify,
 )
+from conference_tools.safety import clean_text
 
 SHEET_INSTRUCTIONS = "Instructions"
 SHEET_EVENT = "Événement"
@@ -478,7 +479,10 @@ def cell_text(value: Any) -> str:
         return ""
     if isinstance(value, float) and value.is_integer():
         value = int(value)
-    return " ".join(str(value).split()) if not isinstance(value, str) else value.strip()
+    if not isinstance(value, str):
+        return " ".join(str(value).split())
+    # Caractères invisibles retirés : ils peuvent masquer des instructions (injection).
+    return clean_text(value).strip()
 
 
 def _split_list(value: Any) -> list[str]:

@@ -13,6 +13,14 @@ dependencies = [
     "websockets",
 ]
 
+[project.optional-dependencies]
+# Garde-fou LAYA en local (ONNX, sans PyTorch) : `uv sync --extra laya`
+laya = [
+    "numpy>=1.26",
+    "onnxruntime>=1.18",
+    "tokenizers>=0.20",
+]
+
 [dependency-groups]
 dev = [
     "pytest>=8.3",

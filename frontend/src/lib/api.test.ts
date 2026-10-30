@@ -26,6 +26,19 @@ describe('streamChat', () => {
     );
   });
 
+  it('forwards replace events', async () => {
+    mockStream([
+      'data: {"type":"delta","text":"Bon"}\n\n',
+      'data: {"type":"replace","text":"Bonjour complet"}\n\ndata: {"type":"done"}\n\n',
+    ]);
+    const received: string[] = [];
+    await streamChat(payload, {
+      onDelta: (text) => received.push(`delta:${text}`),
+      onReplace: (text) => received.push(`replace:${text}`),
+    });
+    expect(received).toEqual(['delta:Bon', 'replace:Bonjour complet']);
+  });
+
   it('rejects with the server error code', async () => {
     mockStream(['data: {"type":"error","code":"llm_timeout"}\n\n']);
     await expect(streamChat(payload, { onDelta: () => undefined })).rejects.toMatchObject({

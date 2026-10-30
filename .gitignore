@@ -18,6 +18,9 @@ coverage/
 .env.*
 !.env.example
 
+# Modèles téléchargés (LAYA)
+backend/models/
+
 # Données de l'événement (données personnelles des speakers)
 tools/data/
 tools/kb/
@@ -27,3 +30,4 @@ tools/linkedin_pdfs/
 .DS_Store
 *.log
 ~$*.xlsx
+backend/evals/reports/

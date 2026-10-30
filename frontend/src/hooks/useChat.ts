@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { HISTORY_SENT, MAX_MESSAGE_LENGTH, STORAGE_KEYS } from '../config';
+import { MAX_MESSAGE_LENGTH, STORAGE_KEYS } from '../config';
 import { ChatApiError, isAbortError, streamChat } from '../lib/api';
 import { readJson, remove, writeJson } from '../lib/storage';
 import type { ChatMessage, Locale } from '../types/chat';
@@ -23,11 +23,13 @@ function restoreConversation(): ChatMessage[] {
     .map((m) => (m.status === 'streaming' ? { ...m, status: 'stopped' as const } : m));
 }
 
-/** Historique transmis au LLM : messages aboutis uniquement, dans la limite configurée. */
+/**
+ * Historique transmis au backend : toute la conversation (messages aboutis uniquement).
+ * La mémoire est gérée par le téléphone ; le backend applique son propre plafond de taille.
+ */
 export function toHistory(messages: ChatMessage[]) {
   return messages
     .filter((m) => m.content.trim() && (m.role === 'user' || m.status !== 'error'))
-    .slice(-HISTORY_SENT)
     .map(({ role, content }) => ({ role, content }));
 }
 
@@ -71,6 +73,7 @@ export function useChat(locale: Locale) {
             signal: controller.signal,
             onDelta: (text) =>
               updateMessage(assistantId, (m) => ({ ...m, content: m.content + text })),
+            onReplace: (text) => updateMessage(assistantId, (m) => ({ ...m, content: text })),
           },
         );
         updateMessage(assistantId, (m) => ({ ...m, status: 'done' }));

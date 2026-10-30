@@ -11,3 +11,6 @@ frontend/dist
 frontend/dev-dist
 **/.env
 *.xlsx
+
+# Modèles LAYA téléchargés localement (non déployés par défaut)
+backend/models

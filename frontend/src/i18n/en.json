@@ -17,7 +17,7 @@
     "intro": "I help you make the most of the event: speakers, agenda, partners, topics to explore and practical information.",
     "starterHeading": "Get started",
     "starters": {
-      "now": "{{currentTime}}: What are the ongoing activities?",
+      "now": "What are the ongoing activities?",
       "speakers": "Who are the speakers?",
       "planning": "I would like to know the show schedule.",
       "planning-user": "Build me a schedule based on my interests",

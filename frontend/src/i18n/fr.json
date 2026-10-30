@@ -17,7 +17,7 @@
     "intro": "Je vous aide à tirer le meilleur de l'événement : speakers, programme, partenaires, sujets à approfondir et informations pratiques.",
     "starterHeading": "Pour commencer",
     "starters": {
-      "now": "{{currentTime}} : Quelles sont les activités en cours ?",
+      "now": "Quelles sont les activités en cours ?",
       "speakers": "Qui sont les speakers ?",
       "planning": "Je souhaiterais connaître le planning du salon.",
       "planning-user": "Construis-moi un planning selon mes centres d'intérêt",

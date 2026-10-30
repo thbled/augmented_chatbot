@@ -32,7 +32,7 @@ class ChatRequest:
 
 
 def parse_chat_request(payload: Any, settings: Settings) -> ChatRequest:
-    """Valide le corps JSON et ne conserve que la fin de l'historique.
+    """Valide le corps JSON ; l'historique complet est conservé dans la limite de taille.
 
     Les messages `system` éventuellement envoyés par le client sont refusés : le prompt
     système est exclusivement géré côté serveur.
@@ -68,7 +68,12 @@ def parse_chat_request(payload: Any, settings: Settings) -> ChatRequest:
     if not messages or messages[-1].role != "user":
         raise ValidationError("invalid_messages", "Le dernier message doit venir de l'utilisateur.")
 
-    history = messages[-settings.max_history_messages :]
+    history = messages
+    if settings.max_history_messages > 0:
+        history = history[-settings.max_history_messages :]
+    # Plafond de taille : on retire les échanges les plus anciens, jamais la dernière question.
+    while len(history) > 1 and sum(len(m.content) for m in history) > settings.max_history_chars:
+        history = history[1:]
     # L'historique tronqué doit commencer par un message utilisateur pour rester cohérent.
     while history and history[0].role != "user":
         history = history[1:]

@@ -5,6 +5,7 @@ description = "Outils de préparation des données de la conférence et de la ba
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "httpx>=0.28",
     "openai>=1.60",
     "openpyxl>=3.1",
     "pypdf>=5.0",

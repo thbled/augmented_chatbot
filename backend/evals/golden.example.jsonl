@@ -1,0 +1,3 @@
+{"id": "golden-exemple-instant", "locale": "fr", "question": "Que se passe-t-il à 15h12 ?", "expect": "answer", "expect_contains": ["TITRE DE LA SESSION DE 15H"], "note": "Exemple à adapter : remplacez par le titre réel"}
+{"id": "golden-exemple-speaker", "locale": "fr", "question": "Qui est NOM DU SPEAKER ?", "expect": "answer", "expect_contains": ["ENTREPRISE DU SPEAKER"], "note": "Exemple à adapter"}
+{"id": "golden-exemple-pratique", "locale": "fr", "question": "Quel est le Wi-Fi ?", "expect": "answer", "expect_contains": ["NOM DU RÉSEAU"], "note": "Exemple à adapter"}

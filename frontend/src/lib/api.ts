@@ -40,6 +40,8 @@ export function isAbortError(error: unknown): boolean {
 interface StreamOptions {
   signal?: AbortSignal;
   onDelta: (text: string) => void;
+  /** Texte complet faisant foi, qui remplace tout ce qui a été reçu jusque-là. */
+  onReplace?: (text: string) => void;
 }
 
 /**
@@ -47,7 +49,10 @@ interface StreamOptions {
  * Rejette avec `ChatApiError` en cas d'erreur, ou avec une erreur d'annulation si `signal`
  * est interrompu.
  */
-export async function streamChat(payload: ChatPayload, { signal, onDelta }: StreamOptions) {
+export async function streamChat(
+  payload: ChatPayload,
+  { signal, onDelta, onReplace }: StreamOptions,
+) {
   let stream: ReadableStream<Uint8Array>;
   try {
     const response = await apiClient.post<ReadableStream<Uint8Array>>('/chat', payload, {
@@ -69,6 +74,8 @@ export async function streamChat(payload: ChatPayload, { signal, onDelta }: Stre
     const { type, text, code } = event as { type?: string; text?: unknown; code?: unknown };
     if (type === 'delta' && typeof text === 'string') {
       onDelta(text);
+    } else if (type === 'replace' && typeof text === 'string') {
+      onReplace?.(text);
     } else if (type === 'done') {
       finished = true;
     } else if (type === 'error') {

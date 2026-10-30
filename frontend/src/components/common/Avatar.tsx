@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { initials, safeUrl } from '../../lib/urls';
+import { initials, safeImageUrl } from '../../lib/urls';
 
 interface AvatarProps {
   name: string;
@@ -10,7 +10,7 @@ interface AvatarProps {
 
 /** Photo décorative (le nom est toujours affiché à côté), avec initiales en repli. */
 export function Avatar({ name, src, className = 'size-12' }: AvatarProps) {
-  const url = safeUrl(src);
+  const url = safeImageUrl(src);
   const [failed, setFailed] = useState(false);
 
   if (url && !failed) {

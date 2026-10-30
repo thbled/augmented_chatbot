@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from chatbot_api.validation import ValidationError, parse_chat_request
@@ -59,3 +61,16 @@ def test_keeps_only_recent_history_starting_with_user(settings):
     messages = [user("1"), assistant("2"), user("3"), assistant("4"), user("5")]
     result = parse_chat_request({"messages": messages}, settings)
     assert [m.content for m in result.messages] == ["3", "4", "5"]
+
+
+def test_history_character_budget(settings):
+    budget = replace(settings, max_history_messages=0, max_history_chars=10)
+    messages = [user("aaaa"), assistant("bbbb"), user("cccc"), assistant("dddd"), user("ee")]
+    result = parse_chat_request({"messages": messages}, budget)
+    assert [m.content for m in result.messages] == ["cccc", "dddd", "ee"]
+
+
+def test_unlimited_message_count_keeps_everything(settings):
+    unlimited = replace(settings, max_history_messages=0)
+    messages = [user(str(i)) if i % 2 == 0 else assistant(str(i)) for i in range(21)]
+    assert len(parse_chat_request({"messages": messages}, unlimited).messages) == 21

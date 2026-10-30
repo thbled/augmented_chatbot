@@ -78,6 +78,15 @@ describe('parseAssistantMessage', () => {
     ]);
   });
 
+  it('removes document citations, including a partial one while streaming', () => {
+    expect(parseAssistantMessage('Session à 14h [Doc 1]. Salle A [Doc 2, 3].').segments).toEqual([
+      { kind: 'markdown', text: 'Session à 14h. Salle A.' },
+    ]);
+    expect(parseAssistantMessage('Titre « IA » [Do', true).segments).toEqual([
+      { kind: 'markdown', text: 'Titre « IA »' },
+    ]);
+  });
+
   it('keeps regular code blocks as markdown', () => {
     const content = '```python\nprint(1)\n```';
     expect(parseAssistantMessage(content).segments).toEqual([{ kind: 'markdown', text: content }]);

@@ -21,6 +21,12 @@ const CLOSED_BLOCK = /```(speaker|session|partner|suggestions)[ \t]*\n([\s\S]*?)
 const OPEN_BLOCK = /```(speaker|session|partner|suggestions)\b/;
 const TRAILING_PARTIAL_FENCE = /\n?`{1,3}[a-z]*$/;
 
+// Renvois aux documents sources ajoutés par la plateforme RAG (« [Doc 1] ») : retirés.
+const CITATION =
+  /\s*\[(?:Doc(?:ument)?|Source)\s*\d+(?:\s*[,;]\s*(?:(?:Doc(?:ument)?|Source)\s*)?\d+)*\]/gi;
+const TRAILING_CITATION =
+  /\s*\[(?:D(?:o(?:c(?:u(?:m(?:e(?:n(?:t)?)?)?)?)?)?)?|S(?:o(?:u(?:r(?:c(?:e)?)?)?)?)?)?\s*\d*$/i;
+
 const MAX_SUGGESTIONS = 4;
 const MAX_SUGGESTION_LENGTH = 120;
 
@@ -184,6 +190,9 @@ function cardKey(card: CardSegment): string {
  * (affiché comme squelette) au lieu d'exposer du JSON partiel.
  */
 export function parseAssistantMessage(content: string, streaming = false): ParsedMessage {
+  content = content.replace(CITATION, '');
+  // Pendant le streaming, un renvoi en cours de réception (« [Do ») est masqué.
+  if (streaming) content = content.replace(TRAILING_CITATION, '');
   const segments: MessageSegment[] = [];
   const suggestions: string[] = [];
   const seenCards = new Set<string>();
